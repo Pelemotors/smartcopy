@@ -1,0 +1,421 @@
+project: "Lior Sleep Consultant Website"
+language: "he"
+rtl: true
+
+tasks:
+
+  - id: 0.0
+    title: "הקמת מבנה אתר וניווט (IA)"
+    tags: ["pages", "ui", "structure"]
+    dependencies: []
+    subtasks:
+      - id: 0.1
+        title: "הגדרת מפת אתר וסדר בתפריט"
+        tags: ["structure", "pages"]
+        dependencies: []
+        acceptance_criteria:
+          - "קיים תפריט עליון RTL עם קישורים לכל העמודים הנדרשים"
+          - "Footer כולל קישורים: נגישות, פרטיות, צור קשר"
+      - id: 0.2
+        title: "יצירת Routing לכל העמודים"
+        tags: ["pages"]
+        dependencies: ["0.1"]
+        acceptance_criteria:
+          - "כל עמוד נגיש בנתיב ברור"
+          - "404/Not Found תקין"
+
+  - id: 1.0
+    title: "הטמעת עיצוב פרימיום (צבעים/פונטים/רכיבי UI)"
+    tags: ["ui", "design-system"]
+    dependencies: ["0.0"]
+    subtasks:
+      - id: 1.1
+        title: "הגדרת Design Tokens לצבעים (לפי פלטה)"
+        tags: ["ui", "design-system"]
+        dependencies: ["0.0"]
+        acceptance_criteria:
+          - "הצבעים קיימים במשתנים/Theme ונעשה בהם שימוש עקבי"
+      - id: 1.2
+        title: "הגדרת טיפוגרפיה (כותרות/טקסט) + RTL מלא"
+        tags: ["ui"]
+        dependencies: ["1.1"]
+        acceptance_criteria:
+          - "כותרות/טקסט בעברית מיושרים לימין"
+          - "פונטים מיושמים לכל האתר"
+      - id: 1.3
+        title: "יצירת רכיבי CTA אחידים (Primary/Secondary)"
+        tags: ["ui", "components"]
+        dependencies: ["1.2"]
+        acceptance_criteria:
+          - "כפתור ראשי: 'לתיאום שיחת ייעוץ ראשונית ללא התחייבות'"
+          - "כפתור משני: 'לילות רגועים מתחילים כאן'"
+
+  - id: 2.0
+    title: "עמוד בית: Hero + נעים להכיר + איך הכל התחיל + החזון"
+    tags: ["pages", "content", "ui"]
+    dependencies: ["1.0"]
+    subtasks:
+      - id: 2.1
+        title: "Hero Section (כותרת עליונה + תת כותרת + CTA)"
+        tags: ["content", "ui"]
+        dependencies: ["1.0"]
+        acceptance_criteria:
+          - "כותרת ותת-כותרת כפי שסופקו על ידי הלקוחה"
+          - "CTA בולט ומניע לפעולה"
+      - id: 2.2
+        title: "סקשן 'נעים להכיר' כולל תמונה (placeholder)"
+        tags: ["content", "ui"]
+        dependencies: ["2.1"]
+        acceptance_criteria:
+          - "הטקסט מחולק לפסקאות נוחות לקריאה"
+          - "תמונה placeholder קיימת ומוחלפת בקלות בעתיד"
+      - id: 2.3
+        title: "סקשן 'איך הכל התחיל' (סיפור אישי)"
+        tags: ["content"]
+        dependencies: ["2.2"]
+        acceptance_criteria:
+          - "הטקסט מוצג בצורה קריאה ומחולקת"
+      - id: 2.4
+        title: "סקשן 'החזון שלי'"
+        tags: ["content"]
+        dependencies: ["2.3"]
+        acceptance_criteria:
+          - "הטקסט מופיע בשלמותו עם עימוד נכון"
+      - id: 2.5
+        title: "CTA נוסף באמצע/סוף דף הבית"
+        tags: ["ui", "content"]
+        dependencies: ["2.4"]
+        acceptance_criteria:
+          - "יש לפחות 2 CTA בדף הבית"
+
+  - id: 3.0
+    title: "עמוד: איך בנוי התהליך"
+    tags: ["pages", "content", "ui"]
+    dependencies: ["1.0"]
+    subtasks:
+      - id: 3.1
+        title: "בניית סקשן 'למה צריך ייעוץ שינה?' כרשימת יתרונות"
+        tags: ["content", "ui"]
+        dependencies: ["3.0"]
+        acceptance_criteria:
+          - "היתרונות מופיעים בצורה של רשימה/כרטיסים"
+      - id: 3.2
+        title: "בניית Timeline לתהליך (8 שבועות, שלבים 1–5)"
+        tags: ["ui", "components"]
+        dependencies: ["3.1"]
+        acceptance_criteria:
+          - "שלבים 1–5 מופיעים כפי שנמסר"
+          - "מוצג משך תהליך ברור"
+      - id: 3.3
+        title: "סקשן 'מה עושה יועצת שינה?' (bullet points)"
+        tags: ["content"]
+        dependencies: ["3.2"]
+        acceptance_criteria:
+          - "3–6 נקודות ברורות ומסודרות"
+      - id: 3.4
+        title: "CTA בסוף העמוד"
+        tags: ["ui"]
+        dependencies: ["3.3"]
+        acceptance_criteria:
+          - "כפתור מוביל לעמוד/טופס צור קשר"
+
+  - id: 4.0
+    title: "עמוד: מי זקוק לייעוץ ומתי?"
+    tags: ["pages", "content", "ui"]
+    dependencies: ["1.0"]
+    subtasks:
+      - id: 4.1
+        title: "סקשן 'שינה רגועה – זכות של כל משפחה'"
+        tags: ["content"]
+        dependencies: ["4.0"]
+        acceptance_criteria:
+          - "הטקסט מופיע וקריא, עם כותרות משנה"
+      - id: 4.2
+        title: "סקשן 'למה ייעוץ שינה חשוב?' ככרטיסים"
+        tags: ["ui", "content"]
+        dependencies: ["4.1"]
+        acceptance_criteria:
+          - "ליווי אישי / טקסים / שיפור איכות שינה מוצגים כcards"
+      - id: 4.3
+        title: "סקשן 'למי זה מתאים?' (גילאים/קהלים)"
+        tags: ["content"]
+        dependencies: ["4.2"]
+        acceptance_criteria:
+          - "5 חודשים עד 3.5 שנים מופיע בבירור"
+      - id: 4.4
+        title: "CTA 'לילות רגועים מתחילים כאן' שמקפיץ לצור קשר"
+        tags: ["ui", "integration"]
+        dependencies: ["4.3"]
+        acceptance_criteria:
+          - "הכפתור גולל לטופס או עובר לעמוד צור קשר"
+
+  - id: 5.0
+    title: "עמוד: סבסוד והחזרים"
+    tags: ["pages", "content", "legal"]
+    dependencies: ["1.0"]
+    subtasks:
+      - id: 5.1
+        title: "בניית הסקשנים: קופות חולים / ביטוח פרטי / רשויות"
+        tags: ["content"]
+        dependencies: ["5.0"]
+        acceptance_criteria:
+          - "שלושת המסלולים מופיעים בצורה מסודרת וברורה"
+      - id: 5.2
+        title: "הוספת דיסקליימר עדין (לא הבטחה להחזר)"
+        tags: ["legal", "content"]
+        dependencies: ["5.1"]
+        acceptance_criteria:
+          - "מופיע טקסט: 'הזכאות תלויה... מומלץ לבדוק מול הגורם המבטח'"
+      - id: 5.3
+        title: "CTA בתחתית העמוד"
+        tags: ["ui"]
+        dependencies: ["5.2"]
+        acceptance_criteria:
+          - "כפתור מוביל לצור קשר"
+
+  - id: 6.0
+    title: "מערכת מאמרים: קטגוריות + רשימת מאמרים + עמוד מאמר"
+    tags: ["pages", "content", "blog"]
+    dependencies: ["1.0"]
+    subtasks:
+      - id: 6.1
+        title: "יצירת קטגוריות (לפי הפרקים שהלקוחה סיפקה)"
+        tags: ["blog", "content"]
+        dependencies: ["6.0"]
+        acceptance_criteria:
+          - "5 קטגוריות קיימות: הבנה/בעיות/טקסים/תלות/חינוך לשינה"
+      - id: 6.2
+        title: "פירוק הטקסט למאמרים נפרדים (Seed Content)"
+        tags: ["blog", "content"]
+        dependencies: ["6.1"]
+        acceptance_criteria:
+          - "נוצרים מאמרים נפרדים עבור כל תת-נושא (מחזורים, REM, רגרסיות, טקסים וכו')"
+      - id: 6.3
+        title: "קומפוננטת 'טיפ מעשי' בולטת בתוך מאמרים"
+        tags: ["ui", "components"]
+        dependencies: ["6.2"]
+        acceptance_criteria:
+          - "הטיפים מוצגים בעיצוב מודגש ועקבי"
+      - id: 6.4
+        title: "עמוד מאמר כולל CTA לסיום"
+        tags: ["ui", "blog"]
+        dependencies: ["6.3"]
+        acceptance_criteria:
+          - "כל מאמר מסתיים בכפתור צור קשר"
+      - id: 6.5
+        title: "עמוד 'מאמרים' כולל פילטר לפי קטגוריה"
+        tags: ["ui", "blog"]
+        dependencies: ["6.4"]
+        acceptance_criteria:
+          - "פילטר עובד (מובייל/דסקטופ)"
+
+  - id: 7.0
+    title: "עמוד צור קשר: טופס + קביעת פגישה אונליין"
+    tags: ["pages", "forms", "integration"]
+    dependencies: ["1.0"]
+    subtasks:
+      - id: 7.1
+        title: "בניית טופס צור קשר (שם, גיל, טלפון, מייל, הודעה)"
+        tags: ["forms", "ui"]
+        dependencies: ["7.0"]
+        acceptance_criteria:
+          - "כל השדות קיימים וקריאים"
+          - "RTL מלא"
+      - id: 7.2
+        title: "ולידציה לטופס (שם וטלפון חובה)"
+        tags: ["forms"]
+        dependencies: ["7.1"]
+        acceptance_criteria:
+          - "שגיאות מוצגות בצורה נגישה וברורה"
+      - id: 7.3
+        title: "הטמעת Calendly לקביעת שיחה (Embed)"
+        tags: ["integration"]
+        dependencies: ["7.1"]
+        acceptance_criteria:
+          - "הטמעה עובדת במובייל"
+      - id: 7.4
+        title: "מצבי הצלחה/כשל בטופס"
+        tags: ["forms", "ui"]
+        dependencies: ["7.2"]
+        acceptance_criteria:
+          - "הודעת הצלחה מוצגת לאחר שליחה"
+          - "כשל מציע מעבר לוואטסאפ"
+
+  - id: 8.0
+    title: "Supabase: שמירת לידים (DB + API)"
+    tags: ["backend", "supabase", "integration"]
+    dependencies: ["7.0"]
+    subtasks:
+      - id: 8.1
+        title: "יצירת טבלת leads בסופבייס (Schema + RLS)"
+        tags: ["supabase", "backend"]
+        dependencies: ["7.0"]
+        acceptance_criteria:
+          - "טבלה קיימת עם שדות: שם, טלפון, מייל, גיל, הודעה, source"
+          - "RLS מוגדר"
+      - id: 8.2
+        title: "יצירת API Route POST /api/leads"
+        tags: ["backend"]
+        dependencies: ["8.1"]
+        acceptance_criteria:
+          - "POST שומר ליד תקין בסופבייס"
+      - id: 8.3
+        title: "חיבור הטופס ל-API (שליחה בפועל)"
+        tags: ["integration", "forms"]
+        dependencies: ["8.2", "7.2"]
+        acceptance_criteria:
+          - "שליחה מהטופס יוצרת רשומה חדשה ב-DB"
+      - id: 8.4
+        title: "שמירת source_page לכל ליד"
+        tags: ["backend", "analytics"]
+        dependencies: ["8.3"]
+        acceptance_criteria:
+          - "נשמר מקור: contact / homeCTA / blogCTA וכו'"
+
+  - id: 9.0
+    title: "כפתורים צפים: וואטסאפ + נגישות"
+    tags: ["ui", "integration", "accessibility"]
+    dependencies: ["1.0"]
+    subtasks:
+      - id: 9.1
+        title: "כפתור וואטסאפ צף עם הודעה מוכנה"
+        tags: ["integration", "ui"]
+        dependencies: ["1.0"]
+        acceptance_criteria:
+          - "כפתור נגיש (aria-label) ולא מסתיר תוכן במובייל"
+      - id: 9.2
+        title: "כפתור נגישות צף (פתיחת תפריט נגישות/קישור)"
+        tags: ["accessibility", "ui"]
+        dependencies: ["1.0"]
+        acceptance_criteria:
+          - "נפתח תפריט נגישות או קישור לנגישות"
+      - id: 9.3
+        title: "ווידוא שאין חפיפה בין הכפתורים במובייל"
+        tags: ["ui"]
+        dependencies: ["9.1", "9.2"]
+        acceptance_criteria:
+          - "שני הכפתורים נוחים ללחיצה ולא מכסים טפסים"
+
+  - id: 10.0
+    title: "נגישות: הצהרת נגישות + התאמות טכניות"
+    tags: ["accessibility", "legal", "ui"]
+    dependencies: ["0.0", "1.0"]
+    subtasks:
+      - id: 10.1
+        title: "יצירת עמוד 'הצהרת נגישות' (תוכן מלא + פרטי קשר)"
+        tags: ["accessibility", "legal", "content"]
+        dependencies: ["0.0"]
+        acceptance_criteria:
+          - "עמוד קיים בפוטר עם תוכן ברור"
+      - id: 10.2
+        title: "תיקוני בסיס: alt לתמונות, labels לטפסים, aria לכפתורים"
+        tags: ["accessibility"]
+        dependencies: ["2.0", "7.1"]
+        acceptance_criteria:
+          - "לכל תמונה יש alt"
+          - "לכל שדה יש label"
+          - "לכפתורים איקוניים יש aria-label"
+      - id: 10.3
+        title: "ניווט מקלדת + focus states"
+        tags: ["accessibility", "ui"]
+        dependencies: ["1.0"]
+        acceptance_criteria:
+          - "אפשר לעבור באתר עם Tab בצורה תקינה"
+          - "פוקוס נראה לעין"
+      - id: 10.4
+        title: "בדיקת Lighthouse נגישות ושיפורים עד 90+"
+        tags: ["accessibility", "qa"]
+        dependencies: ["10.1", "10.2", "10.3"]
+        acceptance_criteria:
+          - "Lighthouse Accessibility >= 90 בעמודים המרכזיים"
+
+  - id: 11.0
+    title: "SEO בסיסי + אמינות (מטא טאגים + OG)"
+    tags: ["seo", "pages"]
+    dependencies: ["2.0", "3.0", "4.0", "5.0", "6.0", "7.0"]
+    subtasks:
+      - id: 11.1
+        title: "Title/Description לכל עמוד"
+        tags: ["seo"]
+        dependencies: ["11.0"]
+        acceptance_criteria:
+          - "לכל עמוד יש title ייחודי ותיאור"
+      - id: 11.2
+        title: "OG tags לשיתופים בוואטסאפ"
+        tags: ["seo"]
+        dependencies: ["11.1"]
+        acceptance_criteria:
+          - "שיתוף קישור מציג כותרת/תיאור"
+
+  - id: 12.0
+    title: "QA ובדיקות לפני מסירה"
+    tags: ["qa", "release"]
+    dependencies: ["8.0", "9.0", "10.0", "11.0"]
+    subtasks:
+      - id: 12.1
+        title: "בדיקות מובייל (תפריט/CTA/טפסים/כפתורים צפים)"
+        tags: ["qa"]
+        dependencies: ["12.0"]
+        acceptance_criteria:
+          - "אין חפיפות או בעיות קליק"
+      - id: 12.2
+        title: "בדיקות פונקציונליות (טופס → Supabase, Calendly, WhatsApp)"
+        tags: ["qa"]
+        dependencies: ["12.1"]
+        acceptance_criteria:
+          - "ליד נשמר ב-DB"
+          - "Calendly עובד"
+          - "WhatsApp נפתח עם הודעה"
+      - id: 12.3
+        title: "בדיקת עמודי מאמרים + פילטר"
+        tags: ["qa", "blog"]
+        dependencies: ["12.2"]
+        acceptance_criteria:
+          - "עמוד רשימה ועמוד מאמר נטענים תקין"
+          - "פילטר עובד"
+
+נגישות : דגשים - 
+בישראל חובת הנגשה מקוונת מעוגנת בתקנות שוויון זכויות לאנשים עם מוגבלות. כל אתר או אפליקציה שמספקים שירות לציבור חייבים לעמוד בדרישות התקן הישראלי 5568 לחלקו הראשון (המתבסס על WCAG 2.0/2.1) ולפרסם “הצהרת נגישות” באתר. להלן הסבר מפורט מה זה אומר בפועל ומה צריך לבצע ברמה הטכנית:
+
+### חובות חוקיות ותקנים
+
+* **חובת פרסום הצהרת נגישות** – האתר חייב לפרסם דף ייעודי שמסביר כיצד הוא הונגש, איך להפעיל את הפונקציות המונגשות, אילו חלקים עדיין אינם נגישים ואילו חלופות קיימות לקבלת המידע. הדף צריך לכלול גם דרכי יצירת קשר לטיפול בתקלות נגישות.
+* **תקן ישראלי 5568** – אתר מונגש הוא אתר שבוצעו בו התאמות לפי תקן זה. התקן הוא אימוץ של הנחיות WCAG ולכן נדרש לעמוד ברמה AA לפחות.
+* **פרטי ההנגשה והסדרי הנגישות** – מעבר לרמה הטכנית של האתר, יש לציין בהצהרה את הסדרי הנגישות הפיזיים של העסק (חניות נכים, דרכי גישה, שירותים נגישים וכו’) ופרטי קשר של רכז הנגישות.
+
+### דרישות טכניות בסיסיות (רמת AA)
+
+* **תיאורי ALT** – לכל תמונה, אייקון וכפתור חייב להיות תיאור טקסטואלי (alt) כדי שתוכנות קוראות מסך יוכלו להבין את התוכן.
+* **ניווט מקלדת מלא** – כל רכיב באתר צריך להיות ניתן להפעלה באמצעות מקשי TAB וחצים, כולל תפריטים, טפסים וכפתורים.
+* **מבנה כותרות נכון** – שימוש היררכי בתגיות H1–H6 כדי לאפשר לקוראי מסך להבין את מבנה העמוד.
+* **ניגודיות צבעים תקינה** – טקסט וקישורים חייבים להיות בעלי ניגודיות גבוהה מול הרקע כדי לאפשר קריאה ברורה לאנשים עם לקות ראייה.
+* **הגדלת טקסט** – יש לאפשר הגדלה של גופנים עד 150% לפחות ללא שבירת עיצוב האתר.
+* **כותרות לסרטונים ותמלול** – לקטעי וידאו צריכים להיות כתוביות, ולתכני שמע יש לספק תמלול.
+* **טפסים נגישים** – כל שדה בטופס חייב לכלול תווית (label), הנחיות ברורות והודעת שגיאה נגישה.
+* **שפה פשוטה** – גם האתר וגם ההצהרה חייבים להיות כתובים בשפה ברורה ופשוטה, כדי שהמידע יהיה נגיש קוגניטיבית.
+* **תמיכה בקוראי מסך ודפדפנים שונים** – יש לוודא שהאתר מותאם לדפדפנים מרכזיים ולתוכנות עזר (NVDA, JAWS) ולציין זאת בהצהרה.
+* **נגישות מסמכים** – מסמכי PDF או טפסים שנוצרו אחרי 25.10.2017 חייבים להיות נגישים; מסמכים ישנים חייבים להיות מונגשים אם הם חלק מטפסים דיגיטליים.
+* **סימון ושימוש בתוסף נגישות** – מומלץ להוסיף אייקון/לחצן ברור בראש או בתחתית הדף שמקשר להצהרת הנגישות, ולוודא שהתוסף (אם משתמשים בו) מפנה להצהרת הנגישות שלכם.
+
+### תוכן ההצהרה (מה לכלול בדף)
+
+* כותרת ופתיח המציגים את מחויבות העסק לנגישות.
+* הצהרה על רמת התקן לפיה האתר הונגש (למשל: “האתר פותח בהתאם להנחיות תקן ת״י 5568, המבוסס על WCAG 2.1 ברמה AA”).
+* פירוט של כל ההתאמות שבוצעו: ניווט מקלדת, תיאורי ALT, ניגודיות, מבנה כותרות, אפשרויות הגדלה, טפסים נגישים, שפה פשוטה ועוד.
+* רשימה של אזורים באתר שעדיין אינם נגישים והסבר מתי צפויים להנגישם.
+* פרטי קשר לרכז הנגישות (שם, טלפון, אימייל וכתובת) וזמן תגובה משוער לפניות.
+* תאריך עדכון אחרון של ההצהרה ופירוט של פטורים או מגבלות טכנולוגיות אם קיימים.
+
+### פעולות נוספות
+
+* **עדכון ותחזוקה** – על פי ההמלצות, יש לבדוק ולעדכן את הצהרת הנגישות באופן שוטף (מומלץ אחת לשלושה חודשים או בכל שינוי מהותי בהנגשה) כדי לשמור על אמינות המידע.
+* **גיבוי משפטי** – למנוע סנקציות, מומלץ לוודא שההצהרה עומדת בדרישות החוק ולהתייעץ עם יועץ נגישות מוסמך; אי עמידה בחובה עלולה להוביל לקנסות של עד 150,000 ₪ ופיצויים עד 50,000 ₪ ללא הוכחת נזק.
+
+במילים אחרות, נדרש לוודא שהאתר מתוכנן, מעוצב ומתכנת בהתאם ל‑WCAG 2.0/2.1 ברמה AA, לפרסם עמוד נגיש שמפרט את רמת ההנגשה, ההתאמות שבוצעו ומגבלות, ולהחזיק רכז נגישות זמין לפניות. החובה חלה כמעט על כל אתר שמציע שירות לציבור בישראל, ולכן יישום תקני הנגישות והצהרת הנגישות היא עניין מהותי שלא ניתן להתעלם ממנו.
+
+
+Liorsleep123!
+
+https://vercel.com/lior-sleeps-projects/liorsleep
+
+https://liorsleep-8rsq1h1eo-lior-sleeps-projects.vercel.app/accessibility
