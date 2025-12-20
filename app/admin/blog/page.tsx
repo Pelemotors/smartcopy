@@ -54,10 +54,10 @@ export default async function BlogPage() {
         <div className="flex flex-wrap gap-4">
           <select className="px-4 py-2 rounded-lg border-2 border-accent-sky bg-white">
             <option value="">כל הקטגוריות</option>
-            <option value="wake-ups">התעוררויות</option>
-            <option value="bedtime">הרדמות</option>
-            <option value="weaning">גמילה</option>
-            <option value="continuous-sleep">שינה רציפה</option>
+            <option value="crowns">כתרים</option>
+            <option value="dentures">תותבות</option>
+            <option value="bridges">גשרים</option>
+            <option value="dental-restoration">שיקום שיניים</option>
           </select>
           <select className="px-4 py-2 rounded-lg border-2 border-accent-sky bg-white">
             <option value="">כל הסטטוסים</option>

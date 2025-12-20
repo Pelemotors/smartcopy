@@ -95,7 +95,7 @@ export default async function TestimonialsPage() {
                       {testimonial.name}
                     </td>
                     <td className="py-4 px-4 font-body text-text-dark">
-                      {testimonial.child_age || '-'}
+                      -
                     </td>
                     <td className="py-4 px-4">
                       {Array.from({ length: testimonial.rating || 0 }).map(
