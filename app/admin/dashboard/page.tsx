@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { Card } from '@/components/ui/Card';
 import Link from 'next/link';
 import { supabaseServer } from '@/lib/supabaseServerClient';
+import { requireAdminSession } from '@/lib/adminSession';
 
 export const dynamic = 'force-dynamic';
 
@@ -71,6 +72,9 @@ async function getDashboardStats() {
 }
 
 export default async function DashboardPage() {
+  // בדיקת session - אם אין session, redirect ל-/admin/login
+  await requireAdminSession();
+  
   const stats = await getDashboardStats();
 
   return (

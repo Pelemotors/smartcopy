@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { Card } from '@/components/ui/Card';
 import { supabaseServer } from '@/lib/supabaseServerClient';
 import { LeadsTable } from './LeadsTable';
+import { requireAdminSession } from '@/lib/adminSession';
 
 export const dynamic = 'force-dynamic';
 
@@ -30,6 +31,9 @@ async function getLeads() {
 }
 
 export default async function LeadsPage() {
+  // בדיקת session - אם אין session, redirect ל-/admin/login
+  await requireAdminSession();
+  
   const leads = await getLeads();
 
   return (

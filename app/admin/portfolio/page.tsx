@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import { supabaseServer } from '@/lib/supabaseServerClient';
+import { requireAdminSession } from '@/lib/adminSession';
 
 export const dynamic = 'force-dynamic';
 
@@ -31,6 +32,9 @@ async function getPortfolioItems() {
 }
 
 export default async function PortfolioPage() {
+  // בדיקת session - אם אין session, redirect ל-/admin/login
+  await requireAdminSession();
+  
   const items = await getPortfolioItems();
 
   return (
