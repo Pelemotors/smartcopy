@@ -19,7 +19,7 @@ export function MediaLibrary({ initialAssets }: MediaLibraryProps) {
           עדיין לא הועלו קבצים.
         </p>
         <p className="text-base text-text-medium font-body">
-          לחצו על "העלה קובץ" כדי להתחיל.
+          לחצו על &quot;העלה קובץ&quot; כדי להתחיל.
         </p>
       </Card>
     );

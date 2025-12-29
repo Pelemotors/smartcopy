@@ -42,11 +42,11 @@ export function HomeContent({ programs }: HomeContentProps) {
           <p className="text-xl md:text-2xl text-text-dark mb-6 font-body max-w-3xl mx-auto font-medium leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
             כתיבת תוכן שיווקי ועריכת לשון לעסקים: דפי נחיתה, אתרים, מודעות ומיקרו־קופי.
             <br />
-            מדויק, נקי ואנושי — בלי קלישאות ובלי "טקסט שמרגיש AI".
+            מדויק, נקי ואנושי — בלי קלישאות ובלי &quot;טקסט שמרגיש AI&quot;.
           </p>
           
           <p className="text-lg md:text-xl text-text-medium mb-6 font-body max-w-3xl mx-auto leading-relaxed animate-slide-up" style={{ animationDelay: '0.3s' }}>
-            אם השירות שלכם מעולה אבל המסר לא "יושב" — האתר יכול להיראות מצוין ועדיין לא להביא פניות.
+            אם השירות שלכם מעולה אבל המסר לא &quot;יושב&quot; — האתר יכול להיראות מצוין ועדיין לא להביא פניות.
             <br />
             אני מסדרת את התוכן כך שהלקוח יבין מהר: מה אתם נותנים, למי זה מתאים, ומה הצעד הבא.
           </p>
@@ -63,7 +63,7 @@ export function HomeContent({ programs }: HomeContentProps) {
           </div>
           
           <p className="text-base md:text-lg text-text-medium font-body animate-fade-in" style={{ animationDelay: '0.6s' }}>
-            מתאים במיוחד למי שהאתר "נראה טוב" — אבל לא מביא פניות איכותיות.
+            מתאים במיוחד למי שהאתר &quot;נראה טוב&quot; — אבל לא מביא פניות איכותיות.
           </p>
         </div>
       </section>
@@ -80,22 +80,22 @@ export function HomeContent({ programs }: HomeContentProps) {
           <div className="space-y-6 mb-8">
             <Card className="p-6 border-l-4 border-accent-sky hover-lift animate-slide-up" style={{ animationDelay: '0.1s' }}>
               <p className="text-lg font-body text-text-dark">
-                "אני מסביר/ה מלא… ועדיין לא מבינים מה אני נותן/ת."
+                &quot;אני מסביר/ה מלא… ועדיין לא מבינים מה אני נותן/ת.&quot;
               </p>
             </Card>
             <Card className="p-6 border-l-4 border-accent-lavender hover-lift animate-slide-up" style={{ animationDelay: '0.2s' }}>
               <p className="text-lg font-body text-text-dark">
-                "אנשים נכנסים, קוראים קצת, ויוצאים בלי לפנות."
+                &quot;אנשים נכנסים, קוראים קצת, ויוצאים בלי לפנות.&quot;
               </p>
             </Card>
             <Card className="p-6 border-l-4 border-accent-pink hover-lift animate-slide-up" style={{ animationDelay: '0.3s' }}>
               <p className="text-lg font-body text-text-dark">
-                "הטקסט 'בסדר', אבל הוא לא נשמע כמוני ולא משדר אמינות."
+                &quot;הטקסט &apos;בסדר&apos;, אבל הוא לא נשמע כמוני ולא משדר אמינות.&quot;
               </p>
             </Card>
             <Card className="p-6 border-l-4 border-accent-warm hover-lift animate-slide-up" style={{ animationDelay: '0.4s' }}>
               <p className="text-lg font-body text-text-dark">
-                "ניסיתי לבד/עם AI — וזה יצא גנרי או מבולגן."
+                &quot;ניסיתי לבד/עם AI — וזה יצא גנרי או מבולגן.&quot;
               </p>
             </Card>
           </div>
@@ -198,17 +198,17 @@ export function HomeContent({ programs }: HomeContentProps) {
             <Card className="p-6 bg-red-50/80 border-2 border-red-300 hover-lift animate-slide-up" style={{ animationDelay: '0.1s' }}>
               <h3 className="text-xl font-heading font-bold text-red-700 mb-4">לפני</h3>
               <p className="text-text-dark font-body italic">
-                "אנחנו מציעים שירות מקצועי ומתקדם שמתאים לכל מי שרוצה לשפר את העסק.
-                נשמח לתת לכם יחס אישי וללוות אתכם בדרך…"
+                &quot;אנחנו מציעים שירות מקצועי ומתקדם שמתאים לכל מי שרוצה לשפר את העסק.
+                נשמח לתת לכם יחס אישי וללוות אתכם בדרך…&quot;
               </p>
             </Card>
             
             <Card className="p-6 bg-green-50/80 border-2 border-green-300 hover-lift animate-slide-up" style={{ animationDelay: '0.2s' }}>
               <h3 className="text-xl font-heading font-bold text-green-700 mb-4">אחרי</h3>
               <p className="text-text-dark font-body font-medium">
-                "רוצים יותר פניות בלי להחליף עסק?
+                &quot;רוצים יותר פניות בלי להחליף עסק?
                 <br />
-                אני מסדרת לכם מסר ברור שמסביר מה אתם נותנים, למי זה מתאים, ומה עושים עכשיו — ואז אנשים פשוט פונים."
+                אני מסדרת לכם מסר ברור שמסביר מה אתם נותנים, למי זה מתאים, ומה עושים עכשיו — ואז אנשים פשוט פונים.&quot;
               </p>
             </Card>
           </div>
@@ -277,7 +277,7 @@ export function HomeContent({ programs }: HomeContentProps) {
                 </div>
                 <div>
                   <h3 className="text-xl font-heading font-bold text-primary mb-2">תיקונים וליטוש</h3>
-                  <p className="text-text-dark font-body">1–2 סבבים עד שזה "יושב" בצורה טבעית.</p>
+                  <p className="text-text-dark font-body">1–2 סבבים עד שזה &quot;יושב&quot; בצורה טבעית.</p>
                 </div>
               </div>
             </Card>
@@ -297,7 +297,7 @@ export function HomeContent({ programs }: HomeContentProps) {
           
           <div className="text-center mt-8">
             <p className="text-lg font-body text-text-medium">
-              אתם לא צריכים לדעת "לנסח נכון". אתם רק צריכים לדעת מה אתם נותנים — ואני כבר אדאג שזה יהיה ברור ומוכר.
+              אתם לא צריכים לדעת &quot;לנסח נכון&quot;. אתם רק צריכים לדעת מה אתם נותנים — ואני כבר אדאג שזה יהיה ברור ומוכר.
             </p>
           </div>
         </div>

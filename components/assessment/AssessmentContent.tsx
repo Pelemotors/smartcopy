@@ -15,7 +15,7 @@ export function AssessmentContent() {
         </p>
         <div className="max-w-3xl mx-auto text-right space-y-4 mb-8">
           <p className="text-base text-text-dark font-body">
-            לפעמים לא צריך "לכתוב הכול מחדש".
+            לפעמים לא צריך &quot;לכתוב הכול מחדש&quot;.
             <br />
             מספיק לזהות מה <em>לא ברור</em> (או מה נשמע גנרי) ולתקן את הדבר הראשון שמפיל פניות.
           </p>

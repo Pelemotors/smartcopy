@@ -58,13 +58,13 @@ export default function ServicesPage() {
               תוכן לאתר (בית / אודות / שירותים)
             </h2>
             <p className="text-text-dark font-body mb-3">
-              <strong>מה זה:</strong> עמודים שמסבירים מה אתם נותנים בצורה שמרגישה מקצועית ולא "מוכרת בכוח".
+              <strong>מה זה:</strong> עמודים שמסבירים מה אתם נותנים בצורה שמרגישה מקצועית ולא &quot;מוכרת בכוח&quot;.
             </p>
             <p className="text-text-dark font-body mb-3">
               <strong>מה כלול:</strong> מבנה לכל עמוד, כתיבה מלאה, התאמת טון, CTA בכל מקטע.
             </p>
             <p className="text-text-dark font-body mb-3">
-              <strong>למי מתאים:</strong> עסקים שרוצים אתר מסודר שמביא פניות, לא רק "כרטיס ביקור".
+              <strong>למי מתאים:</strong> עסקים שרוצים אתר מסודר שמביא פניות, לא רק &quot;כרטיס ביקור&quot;.
             </p>
             <p className="text-text-dark font-body">
               <strong>זמן:</strong> X–Y ימי עבודה.
@@ -100,7 +100,7 @@ export default function ServicesPage() {
               <strong>מה כלול:</strong> תיקון ניסוחים, קיצור רעש, שיפור מבנה, דיוק כותרות וקריאה לפעולה.
             </p>
             <p className="text-text-dark font-body">
-              <strong>למי מתאים:</strong> מי שיש לו בסיס טוב אבל התוצאה "לא יושבת".
+              <strong>למי מתאים:</strong> מי שיש לו בסיס טוב אבל התוצאה &quot;לא יושבת&quot;.
             </p>
           </Card>
 

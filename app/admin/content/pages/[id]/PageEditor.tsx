@@ -25,7 +25,7 @@ export function PageEditor({ page }: PageEditorProps) {
 
         {blocks.length === 0 ? (
           <p className="text-text-medium font-body text-center py-8">
-            עדיין לא נוספו בלוקים. לחצו על "הוסף בלוק" כדי להתחיל.
+            עדיין לא נוספו בלוקים. לחצו על &quot;הוסף בלוק&quot; כדי להתחיל.
           </p>
         ) : (
           <div className="space-y-4">
