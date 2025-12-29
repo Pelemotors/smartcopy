@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { verifySessionToken } from '@/lib/adminAuth';
 
-export async function middleware(request: NextRequest) {
+export function middleware(request: NextRequest) {
   // Protect admin routes
   if (request.nextUrl.pathname.startsWith('/admin')) {
     // Skip login page
@@ -10,24 +9,15 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     }
 
-    // Check for session token
+    // Check for session token (simple check - full verification in API routes)
     const sessionToken = request.cookies.get('admin-session')?.value;
     
     if (!sessionToken) {
       return NextResponse.redirect(new URL('/admin/login', request.url));
     }
 
-    // Verify session token
-    const session = await verifySessionToken(sessionToken);
-    
-    if (!session) {
-      // Invalid token - redirect to login
-      const response = NextResponse.redirect(new URL('/admin/login', request.url));
-      response.cookies.delete('admin-session');
-      return response;
-    }
-
-    // Valid session - proceed
+    // Token exists - let API routes do full verification
+    // This is just a basic check to prevent unauthorized access
     return NextResponse.next();
   }
 

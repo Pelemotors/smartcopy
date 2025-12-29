@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Rubik, Heebo } from "next/font/google";
 import "./globals.css";
 import { Layout } from "@/components/layout/Layout";
@@ -39,6 +39,12 @@ function getBaseUrl(): string {
 
 const baseUrl = getBaseUrl();
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
@@ -47,11 +53,6 @@ export const metadata: Metadata = {
   },
   description:
     "כתיבת תוכן שיווקי ועריכת לשון לעסקים: דפי נחיתה, אתרים, מודעות ומיקרו־קופי. מדויק, נקי, אנושי — בלי מילים מפוצצות ובלי טעויות.",
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
-  },
   openGraph: {
     type: "website",
     locale: "he_IL",
