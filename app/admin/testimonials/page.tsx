@@ -4,6 +4,8 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { supabaseServer } from '@/lib/supabaseServerClient';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'ניהול המלצות - מנהל',
   description: 'ניהול המלצות',

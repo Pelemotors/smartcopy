@@ -1,4 +1,4 @@
-import { supabaseServer } from './supabaseServerClient';
+import { ADMIN_CONFIG } from './adminConfig';
 
 export interface Permission {
   resource: string;
@@ -6,58 +6,19 @@ export interface Permission {
 }
 
 export async function getUserRoles(userId: string): Promise<string[]> {
-  try {
-    const { data, error } = await supabaseServer
-      .from('user_roles')
-      .select('roles(name)')
-      .eq('user_id', userId);
-
-    if (error || !data) {
-      return [];
-    }
-
-    return data.map((ur: any) => ur.roles?.name).filter(Boolean);
-  } catch (error) {
-    console.error('Error fetching user roles:', error);
-    return [];
+  // For the hardcoded admin user, return owner role
+  if (userId === ADMIN_CONFIG.id) {
+    return ['owner'];
   }
+  return [];
 }
 
 export async function hasPermission(userId: string, resource: string, action: string): Promise<boolean> {
-  try {
-    const roles = await getUserRoles(userId);
-
-    // Owner/Admin has all permissions
-    if (roles.includes('owner')) {
-      return true;
-    }
-
-    // Check role-specific permissions
-    const { data: roleData } = await supabaseServer
-      .from('roles')
-      .select('permissions')
-      .in('name', roles);
-
-    if (!roleData) {
-      return false;
-    }
-
-    // Check if any role has the required permission
-    for (const role of roleData) {
-      const permissions = role.permissions as any;
-      if (permissions?.all === true) {
-        return true;
-      }
-      if (permissions?.[resource]?.[action] === true) {
-        return true;
-      }
-    }
-
-    return false;
-  } catch (error) {
-    console.error('Error checking permission:', error);
-    return false;
+  // For the hardcoded admin user, allow all permissions
+  if (userId === ADMIN_CONFIG.id) {
+    return true;
   }
+  return false;
 }
 
 export async function requirePermission(

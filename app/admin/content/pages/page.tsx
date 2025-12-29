@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import { supabaseServer } from '@/lib/supabaseServerClient';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'ניהול עמודים - מנהל',
   description: 'ניהול עמודים ותוכן',

@@ -69,6 +69,14 @@ export default function AdminLayout({
               >
                 חזרה לאתר
               </Link>
+              <form action="/api/admin/auth/logout" method="POST">
+                <button
+                  type="submit"
+                  className="text-text-dark/70 hover:text-text-dark font-body text-sm"
+                >
+                  התנתק
+                </button>
+              </form>
             </div>
           </div>
         </div>

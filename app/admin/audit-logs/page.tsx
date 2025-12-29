@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import { Card } from '@/components/ui/Card';
 import { supabaseServer } from '@/lib/supabaseServerClient';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Audit Logs - מנהל',
   description: 'לוגים של פעולות',

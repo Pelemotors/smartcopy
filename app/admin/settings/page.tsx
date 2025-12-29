@@ -3,6 +3,8 @@ import { Card } from '@/components/ui/Card';
 import { SettingsForm } from './SettingsForm';
 import { supabaseServer } from '@/lib/supabaseServerClient';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'הגדרות - מנהל',
   description: 'הגדרות כלליות',

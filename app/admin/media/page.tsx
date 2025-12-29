@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/Button';
 import { MediaLibrary } from './MediaLibrary';
 import { supabaseServer } from '@/lib/supabaseServerClient';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Media Library - מנהל',
   description: 'ניהול מדיה',

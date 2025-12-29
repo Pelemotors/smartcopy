@@ -3,6 +3,8 @@ import { Card } from '@/components/ui/Card';
 import { LeadsKanban } from './LeadsKanban';
 import { supabaseServer } from '@/lib/supabaseServerClient';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'לידים - Kanban - מנהל',
   description: 'ניהול לידים ב-Kanban',

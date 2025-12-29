@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/Button';
 import { supabaseServer } from '@/lib/supabaseServerClient';
 import { DeleteButton } from './DeleteButton';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'ניהול מאמרים - מנהל',
   description: 'ניהול מאמרים',

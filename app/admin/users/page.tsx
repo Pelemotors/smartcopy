@@ -1,54 +1,37 @@
 import { Metadata } from 'next';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { supabaseServer } from '@/lib/supabaseServerClient';
+import { ADMIN_CONFIG } from '@/lib/adminConfig';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'ניהול משתמשים - מנהל',
   description: 'ניהול משתמשים והרשאות',
 };
 
-async function getUsers() {
-  try {
-    // Get admin users
-    const { data: adminUsers, error: adminError } = await supabaseServer
-      .from('admin_users')
-      .select('*, user_roles(roles(*))');
-
-    if (adminError) {
-      console.error('Error fetching users:', adminError);
-      return [];
-    }
-
-    return adminUsers || [];
-  } catch (error) {
-    console.error('Error fetching users:', error);
-    return [];
-  }
+function getUsers() {
+  // Return hardcoded admin user
+  return [
+    {
+      id: ADMIN_CONFIG.id,
+      username: ADMIN_CONFIG.username,
+      name: ADMIN_CONFIG.name,
+      roles: ['owner'],
+    },
+  ];
 }
 
-async function getRoles() {
-  try {
-    const { data, error } = await supabaseServer
-      .from('roles')
-      .select('*')
-      .order('name');
-
-    if (error) {
-      console.error('Error fetching roles:', error);
-      return [];
-    }
-
-    return data || [];
-  } catch (error) {
-    console.error('Error fetching roles:', error);
-    return [];
-  }
+function getRoles() {
+  // Return basic roles
+  return [
+    { id: 'owner', name: 'owner', display_name_he: 'מנהל ראשי' },
+  ];
 }
 
 export default async function UsersPage() {
-  const users = await getUsers();
-  const roles = await getRoles();
+  const users = getUsers();
+  const roles = getRoles();
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -74,14 +57,20 @@ export default async function UsersPage() {
               <div className="flex justify-between items-center">
                 <div>
                   <h3 className="text-xl font-heading font-bold text-primary mb-2">
-                    {user.email}
+                    {user.name || user.username}
                   </h3>
+                  <p className="text-sm text-text-medium font-body mb-1">
+                    שם משתמש: {user.username}
+                  </p>
                   <p className="text-sm text-text-medium font-body">
-                    תפקידים: {user.user_roles?.map((ur: any) => ur.roles?.display_name_he).join(', ') || 'ללא תפקיד'}
+                    תפקידים: {user.roles?.map((role: string) => {
+                      const roleData = roles.find((r: any) => r.name === role);
+                      return roleData?.display_name_he || role;
+                    }).join(', ') || 'ללא תפקיד'}
                   </p>
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="secondary" size="sm">
+                  <Button variant="secondary" size="sm" disabled>
                     עריכה
                   </Button>
                 </div>

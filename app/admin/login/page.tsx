@@ -10,7 +10,7 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 export default function AdminLoginPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    email: '',
+    username: '',
     password: '',
   });
   const [error, setError] = useState('');
@@ -22,8 +22,6 @@ export default function AdminLoginPage() {
     setIsLoading(true);
 
     try {
-      // TODO: Implement Supabase Auth login
-      // For now, this is a placeholder
       const response = await fetch('/api/admin/auth/login', {
         method: 'POST',
         headers: {
@@ -57,12 +55,12 @@ export default function AdminLoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <Input
-              label="אימייל"
-              type="email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              label="שם משתמש"
+              type="text"
+              value={formData.username}
+              onChange={(e) => setFormData({ ...formData, username: e.target.value })}
               required
-              autoComplete="email"
+              autoComplete="username"
             />
 
             <Input

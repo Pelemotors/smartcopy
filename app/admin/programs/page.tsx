@@ -4,6 +4,8 @@ import { supabaseServer } from '@/lib/supabaseServerClient';
 import { ProgramsList } from './ProgramsList';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'ניהול מסלולים - מנהל',
   description: 'ניהול מסלולים ושירותים',

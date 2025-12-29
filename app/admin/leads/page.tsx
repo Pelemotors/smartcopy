@@ -3,6 +3,8 @@ import { Card } from '@/components/ui/Card';
 import { supabaseServer } from '@/lib/supabaseServerClient';
 import { LeadsTable } from './LeadsTable';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'ניהול לידים - מנהל',
   description: 'ניהול לידים',

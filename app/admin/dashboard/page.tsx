@@ -3,6 +3,8 @@ import { Card } from '@/components/ui/Card';
 import Link from 'next/link';
 import { supabaseServer } from '@/lib/supabaseServerClient';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'לוח בקרה - מנהל',
   description: 'לוח בקרה לניהול האתר',

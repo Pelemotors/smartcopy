@@ -1,93 +1,47 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-import { supabaseServer } from '@/lib/supabaseServerClient';
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+import { verifyCredentials, createSessionToken, getAdminUser } from '@/lib/adminAuth';
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, password } = await request.json();
+    const { username, password } = await request.json();
 
-    if (!email || !password) {
+    if (!username || !password) {
       return NextResponse.json(
-        { error: 'אימייל וסיסמה נדרשים' },
+        { error: 'שם משתמש וסיסמה נדרשים' },
         { status: 400 }
       );
     }
 
-    // Create a client with anon key for auth operations
-    const supabaseAuth = createClient(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        autoRefreshToken: false,
-        persistSession: false,
-      },
-    });
+    // Verify credentials
+    const isValid = await verifyCredentials(username, password);
 
-    // Sign in with Supabase Auth
-    const { data: authData, error: authError } = await supabaseAuth.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (authError || !authData.user) {
-      console.error('Auth error:', authError);
+    if (!isValid) {
       return NextResponse.json(
-        { error: 'אימייל או סיסמה שגויים' },
+        { error: 'שם משתמש או סיסמה שגויים' },
         { status: 401 }
       );
     }
 
-    // Check if user exists in admin_users table (using service role for this)
-    const { data: adminUser, error: adminError } = await supabaseServer
-      .from('admin_users')
-      .select('*')
-      .eq('id', authData.user.id)
-      .eq('active', true)
-      .single();
+    // Get admin user info
+    const adminUser = getAdminUser();
 
-    if (adminError || !adminUser) {
-      console.error('Admin check error:', adminError);
-      // User is authenticated but not an admin
-      await supabaseAuth.auth.signOut();
-      return NextResponse.json(
-        { error: 'אין לך הרשאות גישה לממשק המנהל' },
-        { status: 403 }
-      );
-    }
+    // Create session token
+    const sessionToken = await createSessionToken(adminUser.id, adminUser.username);
 
-    // Update last_login
-    await supabaseServer
-      .from('admin_users')
-      .update({ last_login: new Date().toISOString() })
-      .eq('id', authData.user.id);
-
-    // Create session token (we'll use the access token from Supabase)
+    // Create response
     const response = NextResponse.json(
-      { success: true, user: { id: authData.user.id, email: authData.user.email } },
+      { success: true, user: { id: adminUser.id, username: adminUser.username, name: adminUser.name } },
       { status: 200 }
     );
 
     // Set session cookie
-    if (authData.session?.access_token) {
-      response.cookies.set('sb-access-token', authData.session.access_token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        maxAge: 60 * 60 * 24 * 7, // 7 days
-        path: '/',
-      });
-    }
-
-    if (authData.session?.refresh_token) {
-      response.cookies.set('sb-refresh-token', authData.session.refresh_token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        maxAge: 60 * 60 * 24 * 30, // 30 days
-        path: '/',
-      });
-    }
+    response.cookies.set('admin-session', sessionToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+      path: '/',
+    });
 
     return response;
   } catch (error) {

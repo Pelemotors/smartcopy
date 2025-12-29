@@ -3,6 +3,8 @@ import { Card } from '@/components/ui/Card';
 import { AnalyticsDashboard } from './AnalyticsDashboard';
 import { supabaseServer } from '@/lib/supabaseServerClient';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Analytics - מנהל',
   description: 'ניתוח ביצועים',
