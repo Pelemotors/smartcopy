@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   description: 'כתיבת תוכן שיווקי ועריכת לשון לעסקים: דפי נחיתה, אתרים, מודעות ומיקרו־קופי. מדויק, נקי, אנושי — בלי מילים מפוצצות ובלי טעויות.',
 };
 
+// Ensure this page is static
+export const revalidate = false;
+
 export default function Home() {
   // כל התכנים סטטיים - ללא Supabase
   const programs: any[] = [];
