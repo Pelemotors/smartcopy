@@ -7,6 +7,7 @@ export const metadata: Metadata = {
 };
 
 // Ensure this page is static
+export const dynamic = 'force-static';
 export const revalidate = false;
 
 export default function Home() {
