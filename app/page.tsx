@@ -1,4 +1,10 @@
+import { Metadata } from 'next';
 import { HomeContent } from '@/components/home/HomeContent';
+
+export const metadata: Metadata = {
+  title: 'Sarit Hadar - כתיבת תוכן ועריכת לשון',
+  description: 'כתיבת תוכן שיווקי ועריכת לשון לעסקים: דפי נחיתה, אתרים, מודעות ומיקרו־קופי. מדויק, נקי, אנושי — בלי מילים מפוצצות ובלי טעויות.',
+};
 
 export default function Home() {
   // כל התכנים סטטיים - ללא Supabase
