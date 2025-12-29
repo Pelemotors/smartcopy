@@ -11,10 +11,26 @@ export const StickyWhatsAppButton: React.FC = () => {
     : '#';
 
   const handleClick = () => {
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'whatsapp_click', {
-        event_category: 'engagement',
-        event_label: 'sticky_button',
+    if (typeof window !== 'undefined') {
+      // Track event for analytics
+      if ((window as any).gtag) {
+        (window as any).gtag('event', 'cta_whatsapp_click', {
+          event_category: 'engagement',
+          event_label: 'sticky_button',
+        });
+      }
+      
+      // Track event to internal analytics (if API exists)
+      fetch('/api/analytics/events', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event_type: 'cta_whatsapp_click',
+          page_path: window.location.pathname,
+          metadata: { source: 'sticky_button' },
+        }),
+      }).catch(() => {
+        // Silently fail if analytics API doesn't exist yet
       });
     }
   };
@@ -25,7 +41,7 @@ export const StickyWhatsAppButton: React.FC = () => {
       target="_blank"
       rel="noopener noreferrer"
       onClick={handleClick}
-      className="fixed bottom-4 left-4 md:bottom-6 md:left-6 z-50 bg-[#25D366] hover:bg-[#20BA5A] active:bg-[#1DA851] text-white rounded-full p-3 md:p-4 shadow-lg shadow-[#25D366]/30 transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2 touch-manipulation min-w-[56px] min-h-[56px] md:min-w-[64px] md:min-h-[64px] flex items-center justify-center"
+      className="fixed bottom-4 left-4 md:bottom-6 md:left-6 z-50 bg-gradient-to-br from-[#25D366] to-[#20BA5A] hover:from-[#20BA5A] hover:to-[#1DA851] active:from-[#1DA851] active:to-[#1A9D4A] text-white rounded-full p-3 md:p-4 shadow-xl shadow-[#25D366]/40 transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2 touch-manipulation min-w-[56px] min-h-[56px] md:min-w-[64px] md:min-h-[64px] flex items-center justify-center animate-float"
       aria-label="שלח הודעה בוואטסאפ"
     >
       <svg

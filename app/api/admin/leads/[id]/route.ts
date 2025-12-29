@@ -1,71 +1,43 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabaseServerClient';
 
-// GET - Fetch single lead
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  try {
-    // TODO: Check authentication
-
-    const { data, error } = await supabaseServer
-      .from('leads')
-      .select('*')
-      .eq('id', params.id)
-      .single();
-
-    if (error) {
-      return NextResponse.json(
-        { error: 'ליד לא נמצא' },
-        { status: 404 }
-      );
-    }
-
-    return NextResponse.json({ lead: data });
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'שגיאה כללית' },
-      { status: 500 }
-    );
-  }
-}
-
-// PATCH - Update lead status
 export async function PATCH(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    // TODO: Check authentication
-
     const body = await request.json();
-    const { status, ...otherFields } = body;
+    const { status } = body;
 
-    const updateData: any = {};
-    if (status) {
-      updateData.status = status;
-    }
-    if (Object.keys(otherFields).length > 0) {
-      Object.assign(updateData, otherFields);
-    }
-
+    // Update lead
     const { data, error } = await supabaseServer
       .from('leads')
-      .update(updateData)
+      .update({ status, updated_at: new Date().toISOString() })
       .eq('id', params.id)
       .select()
       .single();
 
     if (error) {
+      console.error('Error updating lead:', error);
       return NextResponse.json(
         { error: 'שגיאה בעדכון הליד' },
         { status: 500 }
       );
     }
 
-    return NextResponse.json({ lead: data });
+    // Create event
+    await supabaseServer
+      .from('lead_events')
+      .insert({
+        lead_id: params.id,
+        event_type: 'status_changed',
+        description_he: `סטטוס שונה ל: ${status}`,
+        metadata: { old_status: data.status, new_status: status },
+      });
+
+    return NextResponse.json(data, { status: 200 });
   } catch (error) {
+    console.error('API error:', error);
     return NextResponse.json(
       { error: 'שגיאה כללית' },
       { status: 500 }
@@ -73,32 +45,30 @@ export async function PATCH(
   }
 }
 
-// DELETE - Delete lead permanently
-export async function DELETE(
+export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    // TODO: Check authentication
-
-    const { error } = await supabaseServer
+    const { data, error } = await supabaseServer
       .from('leads')
-      .delete()
-      .eq('id', params.id);
+      .select('*')
+      .eq('id', params.id)
+      .single();
 
-    if (error) {
+    if (error || !data) {
       return NextResponse.json(
-        { error: 'שגיאה במחיקת הליד' },
-        { status: 500 }
+        { error: 'ליד לא נמצא' },
+        { status: 404 }
       );
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json(data, { status: 200 });
   } catch (error) {
+    console.error('API error:', error);
     return NextResponse.json(
       { error: 'שגיאה כללית' },
       { status: 500 }
     );
   }
 }
-

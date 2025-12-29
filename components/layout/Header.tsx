@@ -10,13 +10,11 @@ export const Header: React.FC = () => {
   const { t, language, setLanguage, isRTL } = useLanguage();
 
   const navItems = [
-    { href: '/', label: t.nav.home },
-    { href: '/about', label: t.nav.about },
-    { href: '/method', label: t.nav.method },
-    { href: '/programs', label: t.nav.services },
-    { href: '/testimonials', label: t.nav.testimonials },
-    { href: '/blog', label: t.nav.blog },
-    { href: '/contact', label: t.nav.contact },
+    { href: '/', label: 'בית' },
+    { href: '/services', label: 'שירותים' },
+    { href: '/portfolio', label: 'תיק עבודות' },
+    { href: '/about', label: 'אודות' },
+    { href: '/contact', label: 'צור קשר' },
   ];
 
   const toggleLanguage = () => {
@@ -24,18 +22,16 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-white/95 backdrop-blur-sm sticky top-0 z-50 border-b border-secondary/10 shadow-sm">
+    <header className="bg-white/95 backdrop-blur-sm sticky top-0 z-50 border-b border-accent-sky/20 shadow-md">
       <div className="container mx-auto px-4">
         <div className={`flex items-center ${isRTL ? 'justify-between' : 'justify-between'} h-16 md:h-20`}>
           {/* Logo - מינימליסטי */}
-          <Link href="/" className={`flex flex-col ${isRTL ? 'items-start' : 'items-end'} hover:opacity-70 transition-opacity`}>
-            <span className="text-xl md:text-2xl font-heading font-bold text-primary">
-              {language === 'he' ? 'מעבדת שיניים' : 'Зуботехническая лаборатория'}
+          <Link href="/" className={`flex flex-col ${isRTL ? 'items-start' : 'items-end'} hover:opacity-70 transition-all duration-300 group`}>
+            <span className="text-xl md:text-2xl font-heading font-bold text-primary group-hover:text-accent-sky transition-colors">
+              Sarit Hadar
             </span>
-            <span className={`text-xs text-text-medium font-body hidden sm:block ${isRTL ? 'text-right' : 'text-left'}`}>
-              {language === 'he' 
-                ? 'טכנאי שיניים מוסמך'
-                : 'Сертифицированный зубной техник'}
+            <span className={`text-xs text-text-medium font-body hidden sm:block ${isRTL ? 'text-right' : 'text-left'} group-hover:text-accent-lavender transition-colors`}>
+              כתיבת תוכן ועריכת לשון
             </span>
           </Link>
 
@@ -45,34 +41,22 @@ export const Header: React.FC = () => {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-text-dark hover:text-primary font-medium transition-colors font-body text-sm relative group"
+                className="text-text-dark hover:text-accent-sky font-medium transition-all duration-300 font-body text-sm relative group"
               >
                 {item.label}
-                <span className="absolute bottom-0 left-0 w-0 h-px bg-primary group-hover:w-full transition-all duration-200"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-sky to-accent-lavender group-hover:w-full transition-all duration-300"></span>
               </Link>
             ))}
-            <Button variant="primary" size="sm" asChild>
-              <Link href="/contact">{t.common.bookCall}</Link>
+            <Button variant="secondary" size="sm" asChild className="hover-lift border-primary text-primary hover:bg-primary hover:text-white">
+              <Link href="/assessment">בדיקה מהירה בחינם</Link>
             </Button>
-            {/* Language Switcher */}
-            <button
-              onClick={toggleLanguage}
-              className="px-3 py-1.5 rounded border border-secondary/20 hover:border-primary transition-colors font-medium text-sm text-text-dark"
-              aria-label={language === 'he' ? 'Switch to Russian' : 'Переключить на иврит'}
-            >
-              {language === 'he' ? 'RU' : 'עב'}
-            </button>
+            <Button variant="primary" size="sm" asChild className="hover-lift bg-gradient-to-r from-primary to-accent-sky">
+              <a href="https://wa.me/972501234567" target="_blank" rel="noopener noreferrer">לשיחה בוואטסאפ</a>
+            </Button>
           </nav>
 
-          {/* Mobile Menu Button & Language Switcher */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-3">
-            <button
-              onClick={toggleLanguage}
-              className="px-3 py-1.5 rounded border border-secondary/20 hover:border-primary transition-colors font-medium text-sm text-text-dark"
-              aria-label={language === 'he' ? 'Switch to Russian' : 'Переключить на иврит'}
-            >
-              {language === 'he' ? 'RU' : 'עב'}
-            </button>
             <button
               className="p-2"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -111,10 +95,15 @@ export const Header: React.FC = () => {
                   {item.label}
                 </Link>
               ))}
-              <Button variant="primary" size="sm" asChild className="w-full mt-2">
-                <Link href="/contact" onClick={() => setIsMenuOpen(false)}>
-                  {t.common.bookCall}
+              <Button variant="secondary" size="sm" asChild className="w-full mt-2">
+                <Link href="/assessment" onClick={() => setIsMenuOpen(false)}>
+                  בדיקה מהירה בחינם
                 </Link>
+              </Button>
+              <Button variant="primary" size="sm" asChild className="w-full mt-2">
+                <a href="https://wa.me/972501234567" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>
+                  לשיחה בוואטסאפ
+                </a>
               </Button>
             </div>
           </nav>

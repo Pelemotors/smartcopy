@@ -36,9 +36,12 @@ export default async function LeadsPage() {
         <h1 className="text-4xl font-heading font-bold text-text-dark">
           ניהול לידים
         </h1>
-        <button className="bg-accent-sky hover:bg-accent-lavender text-text-dark px-6 py-3 rounded-lg font-heading font-medium transition-all">
+        <a
+          href="/api/admin/leads/export?format=csv"
+          className="bg-accent-sky hover:bg-accent-lavender text-text-dark px-6 py-3 rounded-lg font-heading font-medium transition-all inline-block"
+        >
           ייצוא ל-CSV
-        </button>
+        </a>
       </div>
 
       {/* Filters */}

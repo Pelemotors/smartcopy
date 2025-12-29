@@ -19,8 +19,8 @@ export const Button: React.FC<ButtonProps> = ({
   const baseStyles = 'font-heading font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 inline-flex items-center justify-center shadow-sm hover:shadow-md';
   
   const variantStyles = {
-    primary: 'bg-primary text-white hover:bg-primary-dark focus:ring-primary hover:scale-[1.02] active:scale-[0.98]',
-    secondary: 'bg-accent text-white hover:bg-accent-dark focus:ring-accent hover:scale-[1.02] active:scale-[0.98]',
+    primary: 'bg-gradient-to-r from-primary to-accent-sky text-white hover:from-primary-dark hover:to-accent-dark focus:ring-primary hover:scale-[1.03] active:scale-[0.97] shadow-lg hover:shadow-xl transition-all duration-300',
+    secondary: 'bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white focus:ring-primary hover:scale-[1.03] active:scale-[0.97] shadow-md hover:shadow-lg transition-all duration-300 font-semibold',
   };
   
   const sizeStyles = {

@@ -10,9 +10,18 @@ interface Lead {
   id: string;
   name: string;
   phone: string;
+  email: string | null;
   child_age: string | null;
   message: string | null;
   source: string;
+  service_requested: string | null;
+  budget: string | null;
+  deadline: string | null;
+  utm_source: string | null;
+  utm_medium: string | null;
+  utm_campaign: string | null;
+  referrer: string | null;
+  landing_page: string | null;
   quiz_score: number | null;
   quiz_tier: number | null;
   status: string;
@@ -87,6 +96,14 @@ export function LeadsTable({ initialLeads }: LeadsTableProps) {
     switch (status) {
       case 'new':
         return 'info';
+      case 'in_progress':
+        return 'default';
+      case 'waiting_for_client':
+        return 'warning';
+      case 'closed':
+        return 'success';
+      case 'not_relevant':
+        return 'warning';
       case 'contacted':
         return 'default';
       case 'converted':

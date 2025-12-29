@@ -71,6 +71,26 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    if (body.source === 'quick_audit') {
+      if (!body.name || body.name.trim().length === 0) {
+        errors.push('שם הוא שדה חובה');
+      }
+      if (!body.phone || body.phone.trim().length === 0) {
+        errors.push('טלפון הוא שדה חובה');
+      } else {
+        const phoneRegex = /^0[2-9]\d{7,8}$/;
+        if (!phoneRegex.test(body.phone.replace(/-/g, ''))) {
+          errors.push('מספר טלפון לא תקין');
+        }
+      }
+      if (!body.business_field || body.business_field.trim().length === 0) {
+        errors.push('תחום העסק הוא שדה חובה');
+      }
+      if (!body.service_needed || body.service_needed.trim().length === 0) {
+        errors.push('מה צריך הוא שדה חובה');
+      }
+    }
+
     // Honeypot check (if exists in body)
     if (body.honeypot && body.honeypot.length > 0) {
       return NextResponse.json(
@@ -95,6 +115,15 @@ export async function POST(request: NextRequest) {
       source: body.source || 'contact_form',
       quiz_score: body.quiz_score ? parseInt(String(body.quiz_score)) : null,
       quiz_tier: body.quiz_tier ? parseInt(String(body.quiz_tier)) : null,
+      // New fields for quick_audit
+      email: body.email ? String(body.email).trim().substring(0, 255) : null,
+      service_requested: body.service_needed ? String(body.service_needed).trim().substring(0, 100) : null,
+      utm_source: body.utm_source ? String(body.utm_source).trim().substring(0, 255) : null,
+      utm_medium: body.utm_medium ? String(body.utm_medium).trim().substring(0, 255) : null,
+      utm_campaign: body.utm_campaign ? String(body.utm_campaign).trim().substring(0, 255) : null,
+      referrer: body.referrer ? String(body.referrer).trim().substring(0, 2000) : null,
+      landing_page: body.landing_page ? String(body.landing_page).trim().substring(0, 500) : null,
+      status: 'new',
     };
 
     // Add optional fields only if they exist in the schema

@@ -16,25 +16,45 @@ const heebo = Heebo({
   display: "swap",
 });
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_BASE_URL || "https://example.com";
+// בדיקה בטוחה של baseUrl
+function getBaseUrl(): string {
+  const envUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  
+  if (envUrl) {
+    try {
+      new URL(envUrl); // בדיקה שהערך תקין
+      return envUrl;
+    } catch {
+      // אם לא תקין, נשתמש בברירת מחדל
+    }
+  }
+  
+  // ברירת מחדל לפי סביבה
+  if (process.env.NODE_ENV === 'development') {
+    return 'http://localhost:3000';
+  }
+  
+  return 'https://example.com';
+}
+
+const baseUrl = getBaseUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "מעבדת שיניים - טכנאי שיניים מקצועי",
-    template: "%s | מעבדת שיניים",
+    default: "Sarit Hadar - כתיבת תוכן ועריכת לשון",
+    template: "%s | Sarit Hadar",
   },
   description:
-    "מעבדת שיניים מקצועית בישראל - ייצור תותבות, כתרים, גשרים ושיקום שיניים. טכנולוגיות CAD/CAM, חומרים איכותיים ושירות מקצועי. טכנאי שיניים מוסמך.",
+    "כתיבת תוכן שיווקי ועריכת לשון לעסקים: דפי נחיתה, אתרים, מודעות ומיקרו־קופי. מדויק, נקי, אנושי — בלי מילים מפוצצות ובלי טעויות.",
   openGraph: {
     type: "website",
     locale: "he_IL",
     url: baseUrl,
-    title: "מעבדת שיניים - טכנאי שיניים מקצועי",
+    title: "Sarit Hadar - כתיבת תוכן ועריכת לשון",
     description:
-      "מעבדת שיניים מקצועית בישראל - ייצור תותבות, כתרים, גשרים ושיקום שיניים. טכנולוגיות CAD/CAM, חומרים איכותיים ושירות מקצועי. טכנאי שיניים מוסמך.",
-    siteName: "מעבדת שיניים",
+      "כתיבת תוכן שיווקי ועריכת לשון לעסקים: דפי נחיתה, אתרים, מודעות ומיקרו־קופי. מדויק, נקי, אנושי — בלי מילים מפוצצות ובלי טעויות.",
+    siteName: "Sarit Hadar",
   },
   alternates: {
     canonical: "/",

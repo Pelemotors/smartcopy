@@ -3,18 +3,23 @@
 @tailwind utilities;
 
 :root {
-  /* פלטת צבעים מקצועית ומודרנית - בהשראת אתרים מובילים */
-  --color-primary: #1E3A8A; /* כחול מקצועי - אמון וסמכות */
+  /* פלטת צבעים מקצועית ומודרנית - מזמינה וחמה יותר */
+  --color-primary: #2563EB; /* כחול חי ומזמין */
   --color-primary-light: #3B82F6;
   --color-primary-dark: #1E40AF;
   --color-secondary: #64748B; /* אפור עדין - מקצועיות */
   --color-secondary-light: #94A3B8;
   --color-secondary-dark: #475569;
-  --color-accent: #0EA5E9; /* תכלת בהיר - נקיון וחדשנות */
-  --color-accent-light: #38BDF8;
-  --color-accent-dark: #0284C7;
+  --color-accent: #06B6D4; /* תכלת חי וצבעוני */
+  --color-accent-light: #22D3EE;
+  --color-accent-dark: #0891B2;
+  --color-accent-sky: #0EA5E9;
+  --color-accent-lavender: #A78BFA; /* סגול עדין - יוקרה */
+  --color-accent-pink: #EC4899; /* ורוד עדין - חמימות */
+  --color-accent-warm: #F59E0B; /* כתום חם - אנרגיה */
   --color-bg-white: #FFFFFF;
-  --color-bg-cream: #F8FAFC;
+  --color-bg-cream: #FEFEFE;
+  --color-bg-warm: #FFFBF5; /* רקע חם יותר */
   --color-text-dark: #0F172A;
   --color-text-medium: #475569;
   --color-text-light: #94A3B8;
@@ -75,7 +80,32 @@
   }
   
   .animate-fade-in {
-    animation: fadeIn 0.4s ease-in-out;
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.5s ease-out;
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
   }
 }
 
@@ -108,5 +138,34 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s linear infinite;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  background-size: 1000px 100%;
 }
 

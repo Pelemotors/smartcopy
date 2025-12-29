@@ -20,40 +20,52 @@ export default function AdminLayout({
             <Link href="/admin/dashboard" className="text-xl font-heading font-bold text-text-dark">
               לוח בקרה
             </Link>
-            <div className="flex gap-6">
+            <div className="flex gap-4 flex-wrap">
+              <Link
+                href="/admin/content/pages"
+                className="text-text-dark/70 hover:text-text-dark font-body text-sm"
+              >
+                עמודים
+              </Link>
               <Link
                 href="/admin/leads"
-                className="text-text-dark/70 hover:text-text-dark font-body"
+                className="text-text-dark/70 hover:text-text-dark font-body text-sm"
               >
                 לידים
               </Link>
               <Link
-                href="/admin/blog"
-                className="text-text-dark/70 hover:text-text-dark font-body"
+                href="/admin/portfolio"
+                className="text-text-dark/70 hover:text-text-dark font-body text-sm"
               >
-                מאמרים
+                תיק עבודות
               </Link>
               <Link
-                href="/admin/testimonials"
-                className="text-text-dark/70 hover:text-text-dark font-body"
+                href="/admin/media"
+                className="text-text-dark/70 hover:text-text-dark font-body text-sm"
               >
-                המלצות
+                מדיה
               </Link>
               <Link
-                href="/admin/programs"
-                className="text-text-dark/70 hover:text-text-dark font-body"
+                href="/admin/analytics"
+                className="text-text-dark/70 hover:text-text-dark font-body text-sm"
               >
-                מסלולים
+                Analytics
+              </Link>
+              <Link
+                href="/admin/users"
+                className="text-text-dark/70 hover:text-text-dark font-body text-sm"
+              >
+                משתמשים
               </Link>
               <Link
                 href="/admin/settings"
-                className="text-text-dark/70 hover:text-text-dark font-body"
+                className="text-text-dark/70 hover:text-text-dark font-body text-sm"
               >
                 הגדרות
               </Link>
               <Link
                 href="/"
-                className="text-text-dark/70 hover:text-text-dark font-body"
+                className="text-text-dark/70 hover:text-text-dark font-body text-sm"
               >
                 חזרה לאתר
               </Link>

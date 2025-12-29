@@ -10,7 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#1E3A8A", /* כחול מקצועי - אמון וסמכות */
+          DEFAULT: "#2563EB", /* כחול חי ומזמין */
           light: "#3B82F6",
           dark: "#1E40AF",
         },
@@ -20,13 +20,18 @@ const config: Config = {
           dark: "#475569",
         },
         accent: {
-          DEFAULT: "#0EA5E9", /* תכלת בהיר - נקיון וחדשנות */
-          light: "#38BDF8",
-          dark: "#0284C7",
+          DEFAULT: "#06B6D4", /* תכלת חי וצבעוני */
+          light: "#22D3EE",
+          dark: "#0891B2",
+          sky: "#0EA5E9",
+          lavender: "#A78BFA", /* סגול עדין - יוקרה */
+          pink: "#EC4899", /* ורוד עדין - חמימות */
+          warm: "#F59E0B", /* כתום חם - אנרגיה */
         },
         background: {
           white: "#FFFFFF",
-          cream: "#F8FAFC",
+          cream: "#FEFEFE",
+          warm: "#FFFBF5", /* רקע חם יותר */
         },
         text: {
           dark: "#1F2937",
@@ -34,6 +39,13 @@ const config: Config = {
           light: "#64748B",
           white: "#FFFFFF",
         },
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.6s ease-out',
+        'slide-up': 'slideUp 0.6s ease-out',
+        'scale-in': 'scaleIn 0.5s ease-out',
+        'float': 'float 3s ease-in-out infinite',
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
       fontFamily: {
         heading: ["Heebo", "Assistant", "sans-serif"],

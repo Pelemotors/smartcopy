@@ -2,116 +2,64 @@
 
 import Image from 'next/image';
 import { Card } from '@/components/ui/Card';
-import { useLanguage } from '@/lib/i18n/LanguageContext';
+import { Button } from '@/components/ui/Button';
 
 export function AboutContent() {
-  const { t, isRTL } = useLanguage();
-
   return (
     <div className="container mx-auto px-4 py-8 md:py-16">
       <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className={`text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary mb-6 tracking-tight`}>
-            {t.about.title}
+        <div className="text-center mb-12 animate-fade-in">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary mb-6 tracking-tight">
+            נעים להכיר, שרית הדר
           </h1>
         </div>
 
-        {/* Hero Image */}
-        <div className="mb-12 md:mb-16">
-          <div className="relative w-full h-80 md:h-[500px] rounded-2xl overflow-hidden shadow-xl border border-secondary/10">
-            <Image
-              src="/images/dental/dental-lab-about.jpg"
-              alt={t.about.heroTitle}
-              fill
-              className="object-cover"
-              priority
-              sizes="(max-width: 768px) 100vw, 896px"
-            />
-          </div>
-        </div>
-
-        <Card className="mb-12 border border-secondary/10 bg-white">
-          <div className={`flex flex-col ${isRTL ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-12 items-center`}>
+        <Card className="mb-12 border border-secondary/10 bg-white p-8 md:p-12 hover-lift animate-slide-up">
+          <div className="flex flex-col md:flex-row gap-8 items-center">
+            {/* תמונת שרית */}
             <div className="flex-shrink-0 w-full md:w-80">
-              <div className="relative w-full aspect-square rounded-xl overflow-hidden shadow-lg">
+              <div className="relative w-full aspect-square rounded-2xl overflow-hidden shadow-xl border-4 border-accent-lavender/20 animate-float">
                 <Image
-                  src="/images/dental/services/implants.jpg"
-                  alt={t.about.heroTitle}
+                  src="/images/sarit.jpg"
+                  alt="שרית הדר - כותבת תוכן ועורכת לשון"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 320px"
+                  priority
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent"></div>
               </div>
             </div>
-            <div className="flex-grow">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-5 tracking-tight">
-                {t.about.leadingLab}
-              </h2>
-              <p className="text-lg md:text-xl text-text-dark font-body leading-relaxed mb-4 font-medium">
-                {t.about.description1}
+
+            {/* טקסט */}
+            <div className="prose prose-lg max-w-none flex-1">
+              <p className="text-lg md:text-xl text-text-dark font-body leading-relaxed mb-6">
+                אני כותבת תוכן שיווקי ועורכת לשון לעסקים. המטרה שלי היא להפוך שירות טוב למסרים ברורים שמביאים פניות — בצורה נעימה ומסודרת.
               </p>
-              <p className="text-base md:text-lg text-text-medium font-body leading-relaxed mb-4">
-                {t.about.description2}
+              <p className="text-lg md:text-xl text-text-dark font-body leading-relaxed mb-6">
+                אני אוהבת כתיבה נקייה: מעט מילים, הרבה משמעות. בלי "מילים מפוצצות", בלי רעש, ובלי טקסט שמרגיש גנרי.
               </p>
-              <p className="text-base md:text-lg text-text-medium font-body leading-relaxed mb-4">
-                {t.about.description3}
+              <p className="text-lg md:text-xl text-text-dark font-body leading-relaxed mb-6">
+                כתיבה טובה לא אמורה להרשים — היא אמורה להסביר. כשהלקוח מבין מהר מה הוא מקבל ולמה זה מתאים לו, הרבה התנגדויות נעלמות לבד.
               </p>
-              <p className="text-base md:text-lg text-text-medium font-body leading-relaxed">
-                {t.about.description4}
+              <p className="text-lg md:text-xl text-text-dark font-body leading-relaxed mb-8">
+                אם האתר שלך נראה טוב אבל לא מביא פניות, אם הטקסט לא נשמע "כמוך", או אם נמאס לך להסביר שוב ושוב — זה בדיוק המקום שאני נכנסת אליו.
               </p>
+              
+              <div className="text-center md:text-right">
+                <p className="text-lg font-body text-text-medium mb-4">
+                  רוצה שאסתכל על העמוד שלך ואגיד מה הדבר הראשון שהייתי מתקנת?
+                </p>
+                <Button variant="primary" size="lg" asChild className="animate-scale-in">
+                  <a href="https://wa.me/972501234567" target="_blank" rel="noopener noreferrer">
+                    דברו איתי בוואטסאפ
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
-        </Card>
-
-        <Card className="mb-12 border border-secondary/10 bg-white">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-6 tracking-tight">
-            {t.about.historyTitle}
-          </h2>
-          <p className="text-lg md:text-xl text-text-dark font-body leading-relaxed mb-4 font-medium">
-            {t.about.history1}
-          </p>
-          <p className="text-base md:text-lg text-text-medium font-body leading-relaxed mb-4">
-            {t.about.history2}
-          </p>
-          <p className="text-base md:text-lg text-text-medium font-body leading-relaxed mb-4">
-            {t.about.history3}
-          </p>
-          <p className="text-base md:text-lg text-text-medium font-body leading-relaxed">
-            {t.about.history4}
-          </p>
-        </Card>
-
-        <Card className="border border-secondary/10 bg-white">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-6 tracking-tight">
-            {t.about.visionTitle}
-          </h2>
-          <p className="text-lg md:text-xl text-text-dark font-body leading-relaxed mb-8 font-medium">
-            {t.about.vision1}
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div className="bg-accent/5 p-6 rounded-xl border border-accent/20 shadow-sm hover:shadow-md transition-shadow">
-              <h3 className="font-heading font-bold text-xl text-primary mb-3">{t.about.professionalism}</h3>
-              <p className="text-text-medium font-body text-base">{t.about.professionalismDesc}</p>
-            </div>
-            <div className="bg-accent/5 p-6 rounded-xl border border-accent/20 shadow-sm hover:shadow-md transition-shadow">
-              <h3 className="font-heading font-bold text-xl text-primary mb-3">{t.about.advancedTech}</h3>
-              <p className="text-text-medium font-body text-base">{t.about.advancedTechDesc}</p>
-            </div>
-            <div className="bg-accent/5 p-6 rounded-xl border border-accent/20 shadow-sm hover:shadow-md transition-shadow">
-              <h3 className="font-heading font-bold text-xl text-primary mb-3">{t.about.quality}</h3>
-              <p className="text-text-medium font-body text-base">{t.about.qualityDesc}</p>
-            </div>
-            <div className="bg-accent/5 p-6 rounded-xl border border-accent/20 shadow-sm hover:shadow-md transition-shadow">
-              <h3 className="font-heading font-bold text-xl text-primary mb-3">{t.about.personalService}</h3>
-              <p className="text-text-medium font-body text-base">{t.about.personalServiceDesc}</p>
-            </div>
-          </div>
-          <p className="text-text-dark/80 font-body text-base leading-relaxed">
-            {t.about.vision2}
-          </p>
         </Card>
       </div>
     </div>
   );
 }
-

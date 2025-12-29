@@ -146,6 +146,15 @@ export default async function DashboardPage() {
 
       {/* Quick Links */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Link href="/admin/content/pages">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer text-center">
+            <h3 className="text-xl font-heading font-semibold text-text-dark mb-2">
+              ניהול עמודים
+            </h3>
+            <p className="text-text-dark/60 font-body">CMS וניהול תוכן</p>
+          </Card>
+        </Link>
+
         <Link href="/admin/leads">
           <Card className="hover:shadow-lg transition-shadow cursor-pointer text-center">
             <h3 className="text-xl font-heading font-semibold text-text-dark mb-2">
@@ -155,30 +164,57 @@ export default async function DashboardPage() {
           </Card>
         </Link>
 
-        <Link href="/admin/blog">
+        <Link href="/admin/portfolio">
           <Card className="hover:shadow-lg transition-shadow cursor-pointer text-center">
             <h3 className="text-xl font-heading font-semibold text-text-dark mb-2">
-              ניהול מאמרים
+              תיק עבודות
             </h3>
-            <p className="text-text-dark/60 font-body">יצירה ועריכה של מאמרים</p>
+            <p className="text-text-dark/60 font-body">ניהול פרויקטים</p>
           </Card>
         </Link>
 
-        <Link href="/admin/testimonials">
+        <Link href="/admin/media">
           <Card className="hover:shadow-lg transition-shadow cursor-pointer text-center">
             <h3 className="text-xl font-heading font-semibold text-text-dark mb-2">
-              ניהול המלצות
+              Media Library
             </h3>
-            <p className="text-text-dark/60 font-body">הוספה ועריכה של המלצות</p>
+            <p className="text-text-dark/60 font-body">ניהול מדיה</p>
           </Card>
         </Link>
 
-        <Link href="/admin/programs">
+        <Link href="/admin/analytics">
           <Card className="hover:shadow-lg transition-shadow cursor-pointer text-center">
             <h3 className="text-xl font-heading font-semibold text-text-dark mb-2">
-              ניהול מסלולים
+              Analytics
             </h3>
-            <p className="text-text-dark/60 font-body">עדכון מסלולים ושירותים</p>
+            <p className="text-text-dark/60 font-body">ניתוח ביצועים</p>
+          </Card>
+        </Link>
+
+        <Link href="/admin/users">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer text-center">
+            <h3 className="text-xl font-heading font-semibold text-text-dark mb-2">
+              משתמשים
+            </h3>
+            <p className="text-text-dark/60 font-body">ניהול משתמשים והרשאות</p>
+          </Card>
+        </Link>
+
+        <Link href="/admin/settings">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer text-center">
+            <h3 className="text-xl font-heading font-semibold text-text-dark mb-2">
+              הגדרות
+            </h3>
+            <p className="text-text-dark/60 font-body">הגדרות כלליות</p>
+          </Card>
+        </Link>
+
+        <Link href="/admin/audit-logs">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer text-center">
+            <h3 className="text-xl font-heading font-semibold text-text-dark mb-2">
+              Audit Logs
+            </h3>
+            <p className="text-text-dark/60 font-body">לוגים של פעולות</p>
           </Card>
         </Link>
       </div>

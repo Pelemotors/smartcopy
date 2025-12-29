@@ -79,22 +79,16 @@ export default function ContactPage() {
       const responseData = await response.json();
 
       if (response.ok) {
-        setIsSuccess(true);
-        setFormData({
-          name: '',
-          phone: '',
-          serviceType: '',
-          message: '',
-          honeypot: '',
-        });
-
         // Track event
-        if (typeof window !== 'undefined' && window.gtag) {
-          window.gtag('event', 'form_submit_success', {
-            event_category: 'engagement',
-            event_label: 'contact_form',
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+          (window as any).gtag('event', 'contact_form_submit', {
+            event_category: 'form',
+            event_label: 'Contact Form',
           });
         }
+
+        // Redirect to thank you page
+        window.location.href = '/thank-you?type=contact';
       } else {
         console.error('Form submission error:', response.status, responseData);
         throw new Error(responseData.error || 'Form submission error');
@@ -107,38 +101,38 @@ export default function ContactPage() {
     }
   };
 
-  if (isSuccess) {
-    return (
-      <div className="container mx-auto px-4 py-12">
-        <div className="max-w-2xl mx-auto">
-          <Card className="text-center">
-            <h1 className="text-3xl font-heading font-bold text-text-dark mb-4">
-              {t.contact.successTitle}
-            </h1>
-            <p className="text-text-dark/80 font-body text-lg mb-6">
-              {t.contact.successMessage}
-            </p>
-            <Button variant="primary" size="lg" asChild>
-              <a
-                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_PHONE?.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(t.contact.whatsappMessage)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {t.common.letsTalkOnWhatsApp}
-              </a>
-            </Button>
-          </Card>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-heading font-bold text-text-dark mb-8 text-center">
-          {t.contact.title}
+        <h1 className="text-4xl md:text-5xl font-heading font-bold text-text-dark mb-4 text-center">
+          דברו איתי
         </h1>
+        <p className="text-lg md:text-xl text-text-medium font-body mb-4 text-center">
+          שלחו כמה פרטים — ואחזור אליכם עם כיוון ברור.
+        </p>
+        <p className="text-base text-text-medium font-body mb-8 text-center max-w-2xl mx-auto">
+          אם יש לכם קישור לעמוד/דף קיים — צרפו אותו.
+          <br />
+          אם אין — כתבו 2 משפטים: מה אתם מוכרים ולמי. זה מספיק כדי להתחיל.
+        </p>
+        <p className="text-sm text-text-light font-body mb-8 text-center">
+          הפרטים נשמרים לצורך יצירת קשר בלבד.
+        </p>
+        
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+          <Button variant="primary" size="lg" asChild>
+            <a href="https://wa.me/972501234567" target="_blank" rel="noopener noreferrer">
+              לוואטסאפ עכשיו
+            </a>
+          </Button>
+          <Button variant="secondary" size="lg" onClick={() => {
+            const formElement = document.querySelector('form');
+            formElement?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }}>
+            השארת פרטים
+          </Button>
+        </div>
 
         <Card>
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -211,6 +205,10 @@ export default function ContactPage() {
                 t.common.sendMessage
               )}
             </Button>
+            
+            <p className="text-sm text-text-medium text-center mt-4">
+              לא שולחים ספאם. הפרטים משמשים למענה בלבד.
+            </p>
           </form>
         </Card>
       </div>
