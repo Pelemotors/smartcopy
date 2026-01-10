@@ -35,9 +35,7 @@ export const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({ dealerId }
   const [financeType, setFinanceType] = useState<'regular' | 'balloon' | 'schpitzer'>('regular');
   const [balloonAmount, setBalloonAmount] = useState<string>('');
   const [manualInterestRate, setManualInterestRate] = useState<string>('');
-  const [isFromImporter, setIsFromImporter] = useState<boolean>(false);
-  const [is0Km, setIs0Km] = useState<boolean>(false);
-  const [insuranceRequired, setInsuranceRequired] = useState<boolean>(false);
+  const [noInsurance, setNoInsurance] = useState<boolean>(false); // עסקה ללא ביטוח
   const [customerName, setCustomerName] = useState<string>('');
   const [customerPhone, setCustomerPhone] = useState<string>('');
 
@@ -104,11 +102,12 @@ export const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({ dealerId }
       }
     }
     
-    // If 120 months selected but not eligible (not new from importer or 0 km), reset to 100
-    if (loanTermMonths === '120' && !isFromImporter && !is0Km) {
+    // If 120 months selected but vehicle is used (not new), reset to 100
+    // 120 months only for new cars (0-1 years old)
+    if (loanTermMonths === '120' && vehicleAge !== null && vehicleAge > 1) {
       setLoanTermMonths('100');
     }
-  }, [vehicleYear, rules, financeType, loanTermMonths, isFromImporter, is0Km]);
+  }, [vehicleYear, rules, financeType, loanTermMonths]);
 
   // Calculate finance locally without API call
   const calculateFinanceLocal = (input: FinanceCalculationInput) => {
@@ -150,9 +149,16 @@ export const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({ dealerId }
       return;
     }
 
-    // Validate loan term - 120 only for new car from importer or 0 km
-    if (term === 120 && !isFromImporter && !is0Km) {
-      setError('120 חודשים זמין רק לרכב חדש מיבואן או רכב 0 קמ');
+    // Validate no insurance - only for prices up to 100K
+    if (noInsurance && price > 100000) {
+      setError('עסקה ללא ביטוח זמינה רק עד 100,000 ₪');
+      return;
+    }
+    
+    // Validate loan term - 120 only for new cars (0-1 years old)
+    const vehicleAgeCalc = vehicleYear ? new Date().getFullYear() - parseInt(vehicleYear) : null;
+    if (term === 120 && vehicleAgeCalc !== null && vehicleAgeCalc > 1) {
+      setError('120 חודשים זמין רק לרכב חדש (0-1 שנים)');
       return;
     }
     
@@ -180,9 +186,7 @@ export const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({ dealerId }
         finance_type: financeType,
         balloon_amount: financeType === 'balloon' ? parseFloat(balloonAmount) : undefined,
         manual_interest_rate: manualInterestRate ? parseFloat(manualInterestRate) : undefined,
-        is_from_importer: isFromImporter,
-        is_0_km: is0Km,
-        insurance_required: insuranceRequired,
+        insurance_required: !noInsurance, // insurance_required = true means insurance is required
         customer_name: customerName.trim() || undefined,
         customer_phone: customerPhone.trim() || undefined,
       };
@@ -216,9 +220,7 @@ export const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({ dealerId }
     setFinanceType('regular');
     setBalloonAmount('');
     setManualInterestRate('');
-    setIsFromImporter(false);
-    setIs0Km(false);
-    setInsuranceRequired(false);
+    setNoInsurance(false);
     setCustomerName('');
     setCustomerPhone('');
     setResult(null);
@@ -343,8 +345,8 @@ export const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({ dealerId }
                     <option value="84">84 חודשים</option>
                     <option value="96">96 חודשים</option>
                     <option value="100">100 חודשים</option>
-                    {(isFromImporter || is0Km) && (
-                      <option value="120">120 חודשים (רק רכב חדש מיבואן/0 קמ)</option>
+                    {vehicleAge !== null && vehicleAge <= 1 && (
+                      <option value="120">120 חודשים (רק רכב חדש)</option>
                     )}
                   </select>
                 </div>
@@ -448,31 +450,18 @@ export const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({ dealerId }
                     <label className="flex items-center space-x-3 space-x-reverse cursor-pointer">
                       <input
                         type="checkbox"
-                        checked={isFromImporter}
-                        onChange={(e) => setIsFromImporter(e.target.checked)}
+                        checked={noInsurance}
+                        onChange={(e) => setNoInsurance(e.target.checked)}
                         className="w-4 h-4 text-primary focus:ring-primary rounded"
                       />
-                      <span className="text-text-dark text-sm">רכב חדש מיבואן (ריבית: {defaultRates.new_car_from_importer}%)</span>
-                    </label>
-                    
-                    <label className="flex items-center space-x-3 space-x-reverse cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={is0Km}
-                        onChange={(e) => setIs0Km(e.target.checked)}
-                        className="w-4 h-4 text-primary focus:ring-primary rounded"
-                      />
-                      <span className="text-text-dark text-sm">רכב 0 קמ (ריבית: {defaultRates.new_car_0_km}%)</span>
-                    </label>
-                    
-                    <label className="flex items-center space-x-3 space-x-reverse cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={insuranceRequired}
-                        onChange={(e) => setInsuranceRequired(e.target.checked)}
-                        className="w-4 h-4 text-primary focus:ring-primary rounded"
-                      />
-                      <span className="text-text-dark text-sm">נדרש ביטוח</span>
+                      <span className="text-text-dark text-sm">
+                        עסקה ללא ביטוח 
+                        {noInsurance && (
+                          <span className="text-xs text-text-light block mt-1">
+                            עד 70,000 ₪: {defaultRates.no_insurance_up_to_70k}% | 70,001-100,000 ₪: {defaultRates.no_insurance_70k_to_100k}%
+                          </span>
+                        )}
+                      </span>
                     </label>
                   </div>
 

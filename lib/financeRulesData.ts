@@ -89,7 +89,7 @@ export function loadFinanceRules(): FinanceRule[] {
   if (json.ruleset.default_interest_rates) {
     const rates = json.ruleset.default_interest_rates;
 
-    // רכב חדש מיבואן: 7.4%
+    // רכב חדש (0-1 שנים): 7.4% (מיבואן) - נגזר משנתון
     if (rates.new_car_from_importer !== undefined) {
       rules.push({
         rule_id: 'INTEREST_NEW_CAR_FROM_IMPORTER',
@@ -97,26 +97,25 @@ export function loadFinanceRules(): FinanceRule[] {
         priority: 60,
         conditions: {
           car_type: 'new',
-          is_from_importer: true,
+          car_age_years_max: 1,
         },
         result: {
           interest_rate: rates.new_car_from_importer,
         },
         is_active: true,
-        description_he: 'רכב חדש מיבואן',
+        description_he: 'רכב חדש מיבואן (0-1 שנים)',
       });
     }
 
-    // רכב 0 קמ: 8.4%
+    // רכב 0 קמ (שנתון שווה לשנה הנוכחית): 8.4% - נגזר משנתון
     if (rates.new_car_0_km !== undefined) {
       rules.push({
         rule_id: 'INTEREST_NEW_CAR_0_KM',
         rule_type: 'insurance_rate',
-        priority: 59,
+        priority: 61, // Higher priority - check 0 km first
         conditions: {
           car_type: 'new',
-          car_age_years_max: 0,
-          is_0_km: true,
+          car_age_years_max: 0, // Exactly 0 years = current year
         },
         result: {
           interest_rate: rates.new_car_0_km,

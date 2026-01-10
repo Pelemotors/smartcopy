@@ -56,9 +56,7 @@ export interface FinanceCalculationInput {
   finance_type: 'regular' | 'balloon' | 'schpitzer';
   balloon_amount?: number;
   manual_interest_rate?: number; // ריבית ידנית (override) - אופציונלי
-  is_from_importer?: boolean; // רכב חדש מיבואן
-  is_0_km?: boolean; // רכב 0 קמ
-  insurance_required?: boolean; // האם נדרש ביטוח
+  insurance_required?: boolean; // true = נדרש ביטוח, false = ללא ביטוח (רק עד 100K)
   customer_name?: string;
   customer_phone?: string;
 }

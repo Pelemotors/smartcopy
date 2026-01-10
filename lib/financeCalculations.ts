@@ -25,8 +25,6 @@ function matchesCondition(
   vehiclePrice: number,
   loanTermMonths: number,
   carType: 'new' | 'used',
-  isFromImporter?: boolean,
-  is0Km?: boolean,
   insuranceRequired?: boolean
 ): boolean {
   // Check car_type
@@ -63,14 +61,21 @@ function matchesCondition(
     return false;
   }
 
-  // Check is_from_importer
-  if (conditions.is_from_importer !== undefined && conditions.is_from_importer !== isFromImporter) {
-    return false;
+  // Check is_from_importer - derived from vehicle age (new car = 0-1 years)
+  // Note: is_from_importer condition is now derived from car_type and car_age_years_max
+  if (conditions.is_from_importer !== undefined) {
+    const isFromImporter = carType === 'new' && vehicleAge <= 1;
+    if (conditions.is_from_importer !== isFromImporter) {
+      return false;
+    }
   }
 
-  // Check is_0_km
-  if (conditions.is_0_km !== undefined && conditions.is_0_km !== is0Km) {
-    return false;
+  // Check is_0_km - derived from vehicle age (0 years = current year)
+  if (conditions.is_0_km !== undefined) {
+    const is0Km = vehicleAge === 0;
+    if (conditions.is_0_km !== is0Km) {
+      return false;
+    }
   }
 
   // Check insurance_required
@@ -89,13 +94,16 @@ export function applyFinanceRules(
   vehiclePrice: number,
   loanTermMonths: number,
   rules: FinanceRule[],
-  isFromImporter?: boolean,
-  is0Km?: boolean,
   insuranceRequired?: boolean,
   manualInterestRate?: number
 ): CalculationRules {
   const vehicleAge = calculateVehicleAge(vehicleYear);
   const carType = getCarType(vehicleAge);
+  // Determine if new car from importer (0-1 years) or 0 km (exactly 0 years old)
+  // This is derived from vehicle age, not from user input
+  const isFromImporter = vehicleAge <= 1; // New car (0-1 years) can be from importer
+  const is0Km = vehicleAge === 0; // 0 km = brand new (current year)
+  
   const activeRules = rules.filter(rule => rule.is_active).sort((a, b) => b.priority - a.priority);
   const appliedRules: FinanceRule[] = [];
   const warnings: string[] = [];
@@ -111,7 +119,7 @@ export function applyFinanceRules(
   // First, check eligibility rules for balloon
   for (const rule of activeRules) {
     if (rule.rule_type === 'eligibility') {
-      if (matchesCondition(rule.conditions, vehicleAge, vehicleYear, vehiclePrice, loanTermMonths, carType, isFromImporter, is0Km, insuranceRequired)) {
+      if (matchesCondition(rule.conditions, vehicleAge, vehicleYear, vehiclePrice, loanTermMonths, carType, insuranceRequired)) {
         if (rule.result.balloon_allowed !== undefined) {
           balloon_allowed = rule.result.balloon_allowed;
           if (!balloon_allowed && rule.result.reason) {
@@ -128,7 +136,7 @@ export function applyFinanceRules(
   if (balloon_allowed) {
     for (const rule of activeRules) {
       if (rule.rule_type === 'balloon_terms') {
-        if (matchesCondition(rule.conditions, vehicleAge, vehicleYear, vehiclePrice, loanTermMonths, carType, isFromImporter, is0Km, insuranceRequired)) {
+        if (matchesCondition(rule.conditions, vehicleAge, vehicleYear, vehiclePrice, loanTermMonths, carType, insuranceRequired)) {
           if (rule.result.balloon_max_percent_of_price_list !== undefined) {
             balloon_max_percent = rule.result.balloon_max_percent_of_price_list;
           }
@@ -145,7 +153,7 @@ export function applyFinanceRules(
   // Check installments_policy rules
   for (const rule of activeRules) {
     if (rule.rule_type === 'installments_policy') {
-      if (matchesCondition(rule.conditions, vehicleAge, vehicleYear, vehiclePrice, loanTermMonths, carType, isFromImporter, is0Km, insuranceRequired)) {
+      if (matchesCondition(rule.conditions, vehicleAge, vehicleYear, vehiclePrice, loanTermMonths, carType, insuranceRequired)) {
         if (rule.result.base_installments !== undefined) {
           max_installments = rule.result.base_installments;
         }
@@ -163,14 +171,55 @@ export function applyFinanceRules(
 
   // Check insurance_rate rules for interest rate (only if no manual override)
   if (manualInterestRate === undefined) {
-    for (const rule of activeRules) {
-      if (rule.rule_type === 'insurance_rate') {
-        if (matchesCondition(rule.conditions, vehicleAge, vehicleYear, vehiclePrice, loanTermMonths, carType, isFromImporter, is0Km, insuranceRequired)) {
-          if (rule.result.interest_rate !== undefined) {
-            calculated_interest_rate = rule.result.interest_rate;
+    // Priority order:
+    // 1. No insurance rules (highest priority for prices up to 100K)
+    // 2. New/used car rules
+    // 3. Default fallback
+    
+    if (!insuranceRequired && vehiclePrice <= 100000) {
+      // No insurance - check price ranges
+      if (vehiclePrice <= 70000) {
+        // No insurance up to 70K: 10.4%
+        const noInsuranceRule = activeRules.find(r => 
+          r.rule_type === 'insurance_rate' &&
+          r.rule_id === 'INTEREST_NO_INSURANCE_UP_TO_70K'
+        );
+        if (noInsuranceRule) {
+          calculated_interest_rate = noInsuranceRule.result.interest_rate || 10.4;
+          appliedRules.push(noInsuranceRule);
+        } else {
+          calculated_interest_rate = 10.4;
+        }
+      } else if (vehiclePrice <= 100000) {
+        // No insurance 70,001-100,000: 15%
+        const noInsuranceRule = activeRules.find(r => 
+          r.rule_type === 'insurance_rate' &&
+          r.rule_id === 'INTEREST_NO_INSURANCE_70K_TO_100K'
+        );
+        if (noInsuranceRule) {
+          calculated_interest_rate = noInsuranceRule.result.interest_rate || 15.0;
+          appliedRules.push(noInsuranceRule);
+        } else {
+          calculated_interest_rate = 15.0;
+        }
+      }
+    } else {
+      // With insurance or price > 100K - use standard rules
+      for (const rule of activeRules) {
+        if (rule.rule_type === 'insurance_rate') {
+          // Skip no-insurance rules if insurance is required or price > 100K
+          if (rule.rule_id === 'INTEREST_NO_INSURANCE_UP_TO_70K' || 
+              rule.rule_id === 'INTEREST_NO_INSURANCE_70K_TO_100K') {
+            continue;
           }
-          appliedRules.push(rule);
-          break; // Take first matching insurance_rate rule
+          
+          if (matchesCondition(rule.conditions, vehicleAge, vehicleYear, vehiclePrice, loanTermMonths, carType, insuranceRequired)) {
+            if (rule.result.interest_rate !== undefined) {
+              calculated_interest_rate = rule.result.interest_rate;
+            }
+            appliedRules.push(rule);
+            break; // Take first matching insurance_rate rule
+          }
         }
       }
     }
@@ -307,13 +356,19 @@ export function calculateFinance(
     throw new Error('סכום המימון לא יכול להיות גדול ממחיר הרכב');
   }
   
-  // Validate loan term - 120 only for new car from importer or 0 km
-  if (input.loan_term_months === 120 && !input.is_from_importer && !input.is_0_km) {
-    throw new Error('120 חודשים זמין רק לרכב חדש מיבואן או רכב 0 קמ');
+  // Validate loan term - 120 only for new cars (0-1 years old)
+  const vehicleAgeCalc = calculateVehicleAge(input.vehicle_year);
+  if (input.loan_term_months === 120 && vehicleAgeCalc > 1) {
+    throw new Error('120 חודשים זמין רק לרכב חדש (0-1 שנים)');
+  }
+  
+  // Validate no insurance - only for prices up to 100K
+  if (input.insurance_required === false && input.vehicle_price > 100000) {
+    throw new Error('עסקה ללא ביטוח זמינה רק עד 100,000 ₪');
   }
   
   if (![12, 24, 36, 48, 60, 72, 84, 96, 100, 120].includes(input.loan_term_months)) {
-    throw new Error('תקופת הלוואה לא תקינה. אפשרויות: 12, 24, 36, 48, 60, 72, 84, 96, 100, 120 חודשים (120 רק לרכב חדש מיבואן/0 קמ)');
+    throw new Error('תקופת הלוואה לא תקינה. אפשרויות: 12, 24, 36, 48, 60, 72, 84, 96, 100, 120 חודשים (120 רק לרכב חדש)');
   }
 
   // Apply rules
