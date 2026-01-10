@@ -10,9 +10,11 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#2563EB", /* כחול חי ומזמין */
-          light: "#3B82F6",
-          dark: "#1E40AF",
+          DEFAULT: "#1E3A8A", /* כחול כהה מקצועי - אמון */
+          light: "#3B82F6", /* כחול בינוני */
+          dark: "#1E40AF", /* כחול כהה מאוד */
+          bright: "#2563EB", /* כחול בוהק */
+          pale: "#DBEAFE", /* כחול בהיר מאוד */
         },
         secondary: {
           DEFAULT: "#64748B", /* אפור עדין - מקצועיות */
@@ -20,23 +22,25 @@ const config: Config = {
           dark: "#475569",
         },
         accent: {
-          DEFAULT: "#06B6D4", /* תכלת חי וצבעוני */
-          light: "#22D3EE",
-          dark: "#0891B2",
+          DEFAULT: "#1E90FF", /* כחול בהיר - הדגשה */
+          light: "#4A9EFF",
+          dark: "#0066CC",
           sky: "#0EA5E9",
-          lavender: "#A78BFA", /* סגול עדין - יוקרה */
-          pink: "#EC4899", /* ורוד עדין - חמימות */
-          warm: "#F59E0B", /* כתום חם - אנרגיה */
         },
+        success: "#10B981", /* ירוק להצלחה */
+        warning: "#F59E0B", /* צהוב לאזהרה */
+        error: "#EF4444", /* אדום לשגיאות */
         background: {
           white: "#FFFFFF",
-          cream: "#FEFEFE",
-          warm: "#FFFBF5", /* רקע חם יותר */
+          cream: "#F8FAFC", /* לבן כחלחל עדין */
+          light: "#F1F5F9", /* אפור כחלחל בהיר */
+          blue: "#EFF6FF", /* כחול בהיר מאוד */
         },
         text: {
-          dark: "#1F2937",
-          medium: "#475569",
-          light: "#64748B",
+          dark: "#0F172A", /* כחול כהה כמעט שחור */
+          medium: "#475569", /* אפור כהה */
+          light: "#64748B", /* אפור בינוני */
+          blue: "#1E3A8A", /* כחול טקסט */
           white: "#FFFFFF",
         },
       },

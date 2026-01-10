@@ -1,0 +1,243 @@
+{
+  "ruleset": {
+    "name": "auto-finance-rules",
+    "version": "2026-01-06",
+    "currency": "ILS",
+    "default_interest_rates": {
+      "new_car_from_importer": 7.4,
+      "new_car_0_km": 8.4,
+      "used_car_up_to_5_years": 9.9,
+      "no_insurance_up_to_70k": 10.4,
+      "no_insurance_70k_to_100k": 15.0
+    },
+    "notes": [
+      "מקור: טבלאות 'הלוואות בלון' + טבלת כמות תשלומים/חריגה.",
+      "גיל רכב (0-1,2-3...) נמדד בשנים מלאות מאז שנתון הרכב.",
+      "ב'רכב חדש' מוגדר כ-0-1 שנים."
+    ]
+  },
+  "balloon_rules": [
+    {
+      "id": "BALLOON_ELIGIBILITY_USED_UP_TO_6Y",
+      "priority": 100,
+      "type": "eligibility",
+      "conditions": {
+        "car_type": "used",
+        "car_age_years_max": 6
+      },
+      "result": {
+        "balloon_allowed": true
+      }
+    },
+    {
+      "id": "BALLOON_ELIGIBILITY_USED_OVER_6Y",
+      "priority": 99,
+      "type": "eligibility",
+      "conditions": {
+        "car_type": "used",
+        "car_age_years_min": 7
+      },
+      "result": {
+        "balloon_allowed": false,
+        "reason": "רכב משומש מעל 6 שנים לא זכאי למסלול בלון"
+      }
+    },
+    {
+      "id": "BALLOON_NEW_CAR_PERCENT_60M",
+      "priority": 90,
+      "type": "balloon_terms",
+      "conditions": {
+        "car_type": "new",
+        "loan_term_months": 60
+      },
+      "result": {
+        "balloon_max_percent_of_price_list": 45,
+        "balloon_interest_addon_percent": 0.0,
+        "notes": "אין תוספת ריבית על בלונים לרכב חדש"
+      }
+    },
+    {
+      "id": "BALLOON_USED_0_3Y_36M",
+      "priority": 80,
+      "type": "balloon_terms",
+      "conditions": {
+        "car_type": "used",
+        "car_age_years_min": 0,
+        "car_age_years_max": 3,
+        "loan_term_months": 36
+      },
+      "result": {
+        "balloon_max_percent_of_price_list": 50
+      }
+    },
+    {
+      "id": "BALLOON_USED_0_3Y_48M",
+      "priority": 80,
+      "type": "balloon_terms",
+      "conditions": {
+        "car_type": "used",
+        "car_age_years_min": 0,
+        "car_age_years_max": 3,
+        "loan_term_months": 48
+      },
+      "result": {
+        "balloon_max_percent_of_price_list": 35
+      }
+    },
+    {
+      "id": "BALLOON_USED_0_3Y_60M",
+      "priority": 80,
+      "type": "balloon_terms",
+      "conditions": {
+        "car_type": "used",
+        "car_age_years_min": 0,
+        "car_age_years_max": 3,
+        "loan_term_months": 60
+      },
+      "result": {
+        "balloon_max_percent_of_price_list": 30
+      }
+    },
+    {
+      "id": "BALLOON_USED_4_6Y_36M",
+      "priority": 80,
+      "type": "balloon_terms",
+      "conditions": {
+        "car_type": "used",
+        "car_age_years_min": 4,
+        "car_age_years_max": 6,
+        "loan_term_months": 36
+      },
+      "result": {
+        "balloon_max_percent_of_price_list": 40
+      }
+    },
+    {
+      "id": "BALLOON_USED_4_6Y_48M",
+      "priority": 80,
+      "type": "balloon_terms",
+      "conditions": {
+        "car_type": "used",
+        "car_age_years_min": 4,
+        "car_age_years_max": 6,
+        "loan_term_months": 48
+      },
+      "result": {
+        "balloon_max_percent_of_price_list": 30
+      }
+    },
+    {
+      "id": "BALLOON_USED_4_6Y_60M",
+      "priority": 80,
+      "type": "balloon_terms",
+      "conditions": {
+        "car_type": "used",
+        "car_age_years_min": 4,
+        "car_age_years_max": 6,
+        "loan_term_months": 60
+      },
+      "result": {
+        "balloon_max_percent_of_price_list": 25
+      }
+    }
+  ],
+  "installments_rules": [
+    {
+      "id": "TERM_10_21Y_2005_2016",
+      "priority": 70,
+      "type": "installments_policy",
+      "conditions": {
+        "car_age_years_min": 10,
+        "car_age_years_max": 21,
+        "model_year_min": 2005,
+        "model_year_max": 2016
+      },
+      "result": {
+        "base_installments": 36,
+        "max_installments_with_deviation": null,
+        "deviation_interest_addon_percent": null
+      }
+    },
+    {
+      "id": "TERM_8_9Y_2017_2018",
+      "priority": 70,
+      "type": "installments_policy",
+      "conditions": {
+        "car_age_years_min": 8,
+        "car_age_years_max": 9,
+        "model_year_min": 2017,
+        "model_year_max": 2018
+      },
+      "result": {
+        "base_installments": 48,
+        "max_installments_with_deviation": 60,
+        "deviation_interest_addon_percent": 0.6
+      }
+    },
+    {
+      "id": "TERM_6_7Y_2019_2020",
+      "priority": 70,
+      "type": "installments_policy",
+      "conditions": {
+        "car_age_years_min": 6,
+        "car_age_years_max": 7,
+        "model_year_min": 2019,
+        "model_year_max": 2020
+      },
+      "result": {
+        "base_installments": 60,
+        "max_installments_with_deviation": 72,
+        "deviation_interest_addon_percent": 0.6
+      }
+    },
+    {
+      "id": "TERM_4_5Y_2021_2022",
+      "priority": 70,
+      "type": "installments_policy",
+      "conditions": {
+        "car_age_years_min": 4,
+        "car_age_years_max": 5,
+        "model_year_min": 2021,
+        "model_year_max": 2022
+      },
+      "result": {
+        "base_installments": 72,
+        "max_installments_with_deviation": 84,
+        "deviation_interest_addon_percent": 0.6
+      }
+    },
+    {
+      "id": "TERM_2_3Y_2023_2024",
+      "priority": 70,
+      "type": "installments_policy",
+      "conditions": {
+        "car_age_years_min": 2,
+        "car_age_years_max": 3,
+        "model_year_min": 2023,
+        "model_year_max": 2024
+      },
+      "result": {
+        "base_installments": 84,
+        "max_installments_with_deviation": 96,
+        "deviation_interest_addon_percent": 0.6
+      }
+    },
+    {
+      "id": "TERM_0_1Y_2025_2026",
+      "priority": 70,
+      "type": "installments_policy",
+      "conditions": {
+        "car_age_years_min": 0,
+        "car_age_years_max": 1,
+        "model_year_min": 2025,
+        "model_year_max": 2026
+      },
+      "result": {
+        "base_installments": 84,
+        "max_installments_with_deviation": 100,
+        "deviation_interest_addon_percent": null
+      }
+    }
+  ]
+}
+

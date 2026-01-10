@@ -48,19 +48,19 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Sarit Hadar - כתיבת תוכן ועריכת לשון",
-    template: "%s | Sarit Hadar",
+    default: "מחשבון מימון רכב",
+    template: "%s | מחשבון מימון רכב",
   },
   description:
-    "כתיבת תוכן שיווקי ועריכת לשון לעסקים: דפי נחיתה, אתרים, מודעות ומיקרו־קופי. מדויק, נקי, אנושי — בלי מילים מפוצצות ובלי טעויות.",
+    "מחשבון מימון רכב - חשב את החזר המימון החודשי שלך בצורה פשוטה ומהירה. תמיכה במסלולי רגיל, בלון ושפיצר.",
   openGraph: {
     type: "website",
     locale: "he_IL",
     url: baseUrl,
-    title: "Sarit Hadar - כתיבת תוכן ועריכת לשון",
+    title: "מחשבון מימון רכב",
     description:
-      "כתיבת תוכן שיווקי ועריכת לשון לעסקים: דפי נחיתה, אתרים, מודעות ומיקרו־קופי. מדויק, נקי, אנושי — בלי מילים מפוצצות ובלי טעויות.",
-    siteName: "Sarit Hadar",
+      "מחשבון מימון רכב - חשב את החזר המימון החודשי שלך בצורה פשוטה ומהירה. תמיכה במסלולי רגיל, בלון ושפיצר.",
+    siteName: "מחשבון מימון רכב",
   },
   alternates: {
     canonical: "/",

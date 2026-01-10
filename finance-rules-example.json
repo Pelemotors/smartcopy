@@ -1,0 +1,55 @@
+{
+  "rules": [
+    {
+      "rule_type": "vehicle_age_balloon",
+      "description_he": "רכב עד 5 שנים יכול לקבל מסלול בלון ושפיצר",
+      "condition": {
+        "max_age_years": 5
+      },
+      "allowed_values": {
+        "balloon_allowed": true,
+        "schpitzer_allowed": true
+      },
+      "priority": 10,
+      "is_active": true
+    },
+    {
+      "rule_type": "vehicle_age_no_balloon",
+      "description_he": "רכב מעל 5 שנים לא יכול לקבל מסלול בלון",
+      "condition": {
+        "min_age_years": 6
+      },
+      "allowed_values": {
+        "balloon_allowed": false
+      },
+      "priority": 10,
+      "is_active": true
+    },
+    {
+      "rule_type": "insurance_rate_low",
+      "description_he": "ללא ביטוח עד 70,000 ש\"ח - ריבית 10.4%",
+      "condition": {
+        "max_price": 70000,
+        "insurance_required": false
+      },
+      "allowed_values": {},
+      "interest_rate": 10.4,
+      "priority": 20,
+      "is_active": true
+    },
+    {
+      "rule_type": "insurance_rate_high",
+      "description_he": "ללא ביטוח 70,001-100,000 ש\"ח - ריבית 15%",
+      "condition": {
+        "min_price": 70001,
+        "max_price": 100000,
+        "insurance_required": false
+      },
+      "allowed_values": {},
+      "interest_rate": 15.0,
+      "priority": 20,
+      "is_active": true
+    }
+  ]
+}
+

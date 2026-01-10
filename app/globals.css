@@ -3,26 +3,30 @@
 @tailwind utilities;
 
 :root {
-  /* פלטת צבעים מקצועית ומודרנית - מזמינה וחמה יותר */
-  --color-primary: #2563EB; /* כחול חי ומזמין */
-  --color-primary-light: #3B82F6;
-  --color-primary-dark: #1E40AF;
+  /* פלטת צבעים כחול-לבן פיננסית מקצועית */
+  --color-primary: #1E3A8A; /* כחול כהה מקצועי - אמון */
+  --color-primary-light: #3B82F6; /* כחול בינוני */
+  --color-primary-dark: #1E40AF; /* כחול כהה מאוד */
+  --color-primary-bright: #2563EB; /* כחול בוהק */
+  --color-primary-pale: #DBEAFE; /* כחול בהיר מאוד */
   --color-secondary: #64748B; /* אפור עדין - מקצועיות */
   --color-secondary-light: #94A3B8;
   --color-secondary-dark: #475569;
-  --color-accent: #06B6D4; /* תכלת חי וצבעוני */
-  --color-accent-light: #22D3EE;
-  --color-accent-dark: #0891B2;
+  --color-accent: #1E90FF; /* כחול בהיר - הדגשה */
+  --color-accent-light: #4A9EFF;
+  --color-accent-dark: #0066CC;
   --color-accent-sky: #0EA5E9;
-  --color-accent-lavender: #A78BFA; /* סגול עדין - יוקרה */
-  --color-accent-pink: #EC4899; /* ורוד עדין - חמימות */
-  --color-accent-warm: #F59E0B; /* כתום חם - אנרגיה */
+  --color-success: #10B981; /* ירוק להצלחה */
+  --color-warning: #F59E0B; /* צהוב לאזהרה */
+  --color-error: #EF4444; /* אדום לשגיאות */
   --color-bg-white: #FFFFFF;
-  --color-bg-cream: #FEFEFE;
-  --color-bg-warm: #FFFBF5; /* רקע חם יותר */
-  --color-text-dark: #0F172A;
-  --color-text-medium: #475569;
-  --color-text-light: #94A3B8;
+  --color-bg-cream: #F8FAFC; /* לבן כחלחל עדין */
+  --color-bg-light: #F1F5F9; /* אפור כחלחל בהיר */
+  --color-bg-blue: #EFF6FF; /* כחול בהיר מאוד */
+  --color-text-dark: #0F172A; /* כחול כהה כמעט שחור */
+  --color-text-medium: #475569; /* אפור כהה */
+  --color-text-light: #64748B; /* אפור בינוני */
+  --color-text-blue: #1E3A8A; /* כחול טקסט */
   --color-text-white: #ffffff;
   
   /* Spacing Scale */
@@ -49,7 +53,7 @@
 
 @layer base {
   body {
-    @apply bg-background-cream text-text-dark antialiased;
+    @apply bg-white text-text-dark antialiased;
     font-feature-settings: "kern" 1;
     text-rendering: optimizeLegibility;
   }
